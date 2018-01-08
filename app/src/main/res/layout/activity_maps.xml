@@ -1,0 +1,83 @@
+<RelativeLayout
+    android:id="@+id/parentContainer"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/linearLayout4">
+
+        <include layout="@layout/toolbar"/>
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout4">
+
+        <com.caminosantiago.socialway.views.ButtonAwesome
+            android:onClick="goWalwing"
+            android:layout_marginRight="1dp"
+            android:background="@color/blue"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/fa_male"
+            android:textSize="25sp"
+            android:id="@+id/button11"
+            android:layout_gravity="right" />
+
+        <com.caminosantiago.socialway.views.ButtonAwesome
+            android:onClick="goCar"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:background="@color/blue"
+            android:textSize="25sp"
+            android:textColor="@android:color/white"
+            android:layout_height="wrap_content"
+            android:text="@string/fa_car"
+            android:id="@+id/button9" />
+
+        <com.caminosantiago.socialway.views.ButtonAwesome
+            android:onClick="goBicycling"
+            android:layout_marginLeft="1dp"
+            android:textSize="27sp"
+            android:background="@color/blue"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/fa_bicycle"
+            android:id="@+id/button10"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>

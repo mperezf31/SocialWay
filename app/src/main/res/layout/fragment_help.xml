@@ -1,0 +1,89 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    tools:context="com.caminosantiago.socialway.HelpFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|top">
+
+        <include layout="@layout/error_conection"/>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal|top">
+
+
+                <ImageView
+                    android:src="@mipmap/ic_launcher_socialway"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/imageView3"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+                <com.caminosantiago.socialway.views.TextViewCookie
+                    android:textColor="@color/blue"
+                    android:textSize="60sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:id="@+id/textView15"
+                    android:layout_gravity="center_horizontal"/>
+
+                <View
+                    android:layout_margin="15dp"
+                    android:background="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:id="@+id/textView16"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/textView15"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+
+                <com.caminosantiago.socialway.views.TextViewRobotoBold
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="30dp"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/msg"
+                    android:id="@+id/textView17"
+                    android:layout_gravity="center_horizontal" />
+
+
+                <com.caminosantiago.socialway.views.ButtonAwesome
+                    android:layout_margin="15dp"
+                    android:textAllCaps="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue"
+                    android:text="@string/invit"
+                    android:id="@+id/button7"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

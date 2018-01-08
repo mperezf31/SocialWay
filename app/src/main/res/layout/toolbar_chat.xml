@@ -1,0 +1,35 @@
+<android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:minHeight="?attr/actionBarSize"
+    android:background="@color/blueLight"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/app_name"
+            android:id="@+id/textViewTitleApp" />
+
+        <TextView
+            android:visibility="gone"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textViewSubTitle" />
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.Toolbar>

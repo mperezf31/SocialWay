@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/darker_gray"
+    android:layout_height="wrap_content" >
+
+
+    <TextView
+        android:layout_width="395dp"
+        android:padding="15dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/set_user_data"
+        android:textColor="@android:color/white"
+        android:background="@color/blue"
+        android:id="@+id/textView20" />
+
+
+    <EditText
+        android:textColor="@android:color/black"
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/name"
+        android:ems="10"
+        android:id="@+id/editText4" />
+
+    <EditText
+        android:textColor="@android:color/black"
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/estado"
+        android:ems="10"
+        android:id="@+id/editText3" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:background="@color/blueLight"
+        android:textColor="@android:color/white"
+        android:id="@+id/buttonOK" />
+
+
+</LinearLayout>

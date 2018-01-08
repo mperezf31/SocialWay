@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content">
+
+    <com.caminosantiago.socialway.views.TextViewAwesome
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:text="@string/fa_close"
+        android:textColor="@android:color/black"
+        android:id="@+id/textViewClose"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewLikes" />
+
+
+</LinearLayout>

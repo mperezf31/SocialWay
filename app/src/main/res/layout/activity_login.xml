@@ -1,0 +1,131 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    xmlns:fb="http://schemas.android.com/apk/res-auto"
+    tools:context="com.caminosantiago.socialway.LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:src="@drawable/img_login"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp" />
+
+
+
+    <com.caminosantiago.socialway.views.TextViewCookie
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:text="@string/camino_de_santiago"
+        android:id="@+id/info"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:id="@+id/layoutPass"
+        android:background="@drawable/rounded_border_blue"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonRegister"
+        android:layout_centerHorizontal="true">
+
+        <com.caminosantiago.socialway.views.TextViewAwesome
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/fa_pencil"
+            android:textColor="@android:color/black"
+            android:id="@+id/textView3"
+            android:layout_gravity="center_vertical" />
+
+        <EditText
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="2dp"
+            android:textColorHint="@color/gris_oscuro"
+            android:hint="@string/email"
+            android:paddingLeft="10dp"
+            android:maxLength="40"
+            android:textColor="@android:color/black"
+            android:id="@+id/editText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:background="@drawable/rounded_border_blue"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layoutPass"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout2">
+
+        <com.caminosantiago.socialway.views.TextViewAwesome
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/fa_pencil"
+            android:textColor="@android:color/black"
+            android:id="@+id/textView3U"
+            android:layout_gravity="center_vertical" />
+
+        <EditText
+            android:inputType="textPersonName"
+            android:maxLength="40"
+            android:textColorHint="@color/gris_oscuro"
+            android:hint="@string/nombre"
+            android:paddingLeft="10dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/editTextU"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+    <com.caminosantiago.socialway.views.ButtonAwesome
+        android:id="@+id/buttonRegister"
+        android:background="@android:color/transparent"
+        android:textSize="45sp"
+        android:layout_marginBottom="50dp"
+        android:onClick="register"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textColor="@android:color/white"
+        android:text="@string/fa_arrow_circle_right"
+        android:layout_above="@+id/login_button"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

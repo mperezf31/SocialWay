@@ -1,0 +1,131 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RadioGroup
+        android:id="@+id/radioButtonGroup"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <RadioButton
+            android:background="@drawable/custom_bg_tabs"
+            android:textColor="@drawable/custom_text_tabs"
+            android:checked="true"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/all"
+            android:id="@+id/radioButton"
+            android:layout_gravity="left|top" />
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/blue"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <RadioButton
+            android:textColor="@drawable/custom_text_tabs"
+            android:background="@drawable/custom_bg_tabs"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/tu_camino"
+            android:id="@+id/radioButton2"
+            android:layout_gravity="center_horizontal|top" />
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/blue"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <RadioButton
+            android:textColor="@drawable/custom_text_tabs"
+            android:background="@drawable/custom_bg_tabs"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Followings"
+            android:id="@+id/radioButton3"
+            android:layout_gravity="center_horizontal|top" />
+
+    </RadioGroup>
+
+    <View
+        android:background="@color/blue"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|top">
+
+            <FrameLayout
+                android:id="@+id/containerMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+              <android.support.design.widget.FloatingActionButton
+                android:id="@+id/addPublication"
+                android:tint="@android:color/white"
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@android:drawable/ic_input_add"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+</LinearLayout>
+
+
+<!--
+<android.support.v4.app.FragmentTabHost
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TabWidget
+            android:background="@color/blue"
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"/>
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+</android.support.v4.app.FragmentTabHost>
+
+
+-->

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_black"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imgAvatarPublication"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@+id/textView12"
+        android:layout_toRightOf="@+id/imgAvatarPublication"
+        android:layout_toStartOf="@+id/textView12"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <com.caminosantiago.socialway.views.TextViewRoboto
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="info"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginTop="10dp"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_default" />
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="25dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            app:ci_drawable="@drawable/circle_slider"
+            app:ci_height="8dp"
+            app:ci_width="8dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/layoutLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <com.caminosantiago.socialway.views.TextViewAwesome
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="@string/fa_thumbs_o_up"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/textViewNumVotes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="-2dp"
+                    android:layout_toEndOf="@+id/textView10"
+                    android:layout_toRightOf="@+id/textView10"
+                    android:text="3"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/black" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <com.caminosantiago.socialway.views.TextViewAwesome
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:paddingRight="10dp"
+                    android:text="@string/fa_comments_o"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/textViewNumComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/textView9"
+                    android:layout_marginTop="-2dp"
+                    android:layout_toEndOf="@+id/textView9"
+                    android:layout_toRightOf="@+id/textView9"
+                    android:text="5"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/black" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/linea"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/textFecha"
+            android:layout_marginTop="2dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <com.caminosantiago.socialway.views.ButtonAwesome
+                android:id="@+id/button3"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_border_blue"
+                android:text="@string/fa_thumbs_o_up"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <com.caminosantiago.socialway.views.ButtonAwesome
+                android:id="@+id/button4"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_border_blue"
+                android:text="@string/fa_comment_o"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black"
+                android:textSize="22sp" />
+
+            <com.caminosantiago.socialway.views.ButtonAwesome
+                android:id="@+id/buttonShare"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_border_blue"
+                android:text="@string/fa_share_alt"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <com.caminosantiago.socialway.views.TextViewAwesome
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="10dp"
+        android:text="@string/fa_map_marker"
+        android:textColor="@color/blue"
+        android:textSize="30sp" />
+
+
+</RelativeLayout>
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <item name="blueLight" type="color">#539AC4</item>
+   <item name="blue" type="color">#25709A</item>
+   <item name="whiteTransparent" type="color">#88ffffff</item>
+
+
+   <item name="gris_oscuro" type="color">#707070</item>
+
+
+</resources>

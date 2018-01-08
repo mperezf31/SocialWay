@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="#B8B8B8"
+	android:focusable="true" android:focusableInTouchMode="true"
+	android:orientation="vertical" >
+
+	<include layout="@layout/toolbar_chat"/>
+
+	<include layout="@layout/error_conection"/>
+
+
+	<ListView
+      android:id="@+id/listviewSalaChat"
+		android:paddingBottom="7dp"
+		android:clipToPadding="false"
+      android:background="#B8B8B8"
+      android:layout_weight="1"
+      android:dividerHeight="10dp"
+		android:divider="#B8B8B8"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+	<RelativeLayout
+		android:id="@+id/layoutSendEmail"
+		android:gravity="center_vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true">
+
+		<EditText
+			android:layout_marginLeft="5dp"
+			android:hint=""
+			android:background="@drawable/rounded_border_blue"
+			android:textColor="@android:color/black"
+			android:layout_centerVertical="true"
+			android:padding="15dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:maxLines="3"
+			android:id="@+id/editTextEnviar"
+			android:layout_toLeftOf="@+id/button1"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true" />
+
+		<com.caminosantiago.socialway.views.ButtonAwesome
+			android:onClick="enviar"
+			android:gravity="center"
+			android:layout_width="65dp"
+			android:layout_height="65dp"
+			android:textSize="55sp"
+			android:text="@string/fa_play_circle"
+			android:textColor="@color/blue"
+			android:background="@android:color/transparent"
+			android:id="@+id/button1"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true" />
+	</RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">SocialWay</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="camino_de_santiago">Camino de Santiago</string>
+    <string name="error_autentication">Erreur d\'authentification</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="content_map">Contenu Carte</string>
+    <string name="title_activity_user">UserActivity</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="acceder">Connectez-vous</string>
+    <string name="nombre">Nom</string>
+    <string name="email">Email</string>
+    <string name="introducir_nombre_email">Vous devez entrer un nom et votre email</string>
+    <string name="formato_email_incorrecto">Mauvais format e-mail</string>
+    <string name="title_activity_load_publication">LoadPublicationActivity</string>
+    <string name="add_image">Ajouter une image</string>
+    <string name="descipcion">Description de ...</string>
+    <string name="add_publication">Ajouter la publication</string>
+    <string name="add_location">Ajouter un emplacement</string>
+    <string name="addimage">Ajouter une image</string>
+    <string name="go_to_camera">Accédez à la caméra</string>
+    <string name="not_add_more_images">Vous ne pouvez pas ajouter plus d\'images</string>
+    <string name="error_send_publication">Il y avait une erreur</string>
+    <string name="add_image_or_description">Vous devez ajouter une image ou une description</string>
+    <string name="loading">Chargement. S\'il vous plaît, attendez...</string>
+    <string name="enviando_publication">Envoi de la publication ...</string>
+    <string name="publication_ok">Publication réussi</string>
+    <string name="error_conection">Il y avait une erreur de connexion</string>
+    <string name="no_conect_touch_try_again">Impossible de se connecter au serveur. Touchez l\'écran pour essayer à nouveau.</string>
+    <string name="title_activity_comments">CommentsActivity</string>
+    <string name="add_images">Ajouter des photos</string>
+    <string name="se_el_primero">Soyez le premier à commenter cette publication</string>
+    <string name="must_add_comment">Vous devez ajouter un commentaire</string>
+    <string name="share_socialway">Partager SocialWay</string>
+    <string name="share_facebook">Partager Facebook o Twitter</string>
+    <string name="share_publication">Partager Poster</string>
+    <string name="no_share">Cette publication ne peut être partagée sur Facebook</string>
+    <string name="share_publi">Partager Poster</string>
+    <string name="add_one_image">Vous devez ajouter au moins une image</string>
+    <string name="select_image">Sélectionner une imagen</string>
+    <string name="set_user_data">Changer les données</string>
+    <string name="name">Nom</string>
+    <string name="estado">État</string>
+    <string name="necesario_un_nombre">Vous devez entrer un nom</string>
+    <string name="no_have_followings">Ne suivez pas les utilisateurs. Accès à la page d\'un utilisateur et appuyez sur le bouton pour continuer.</string>
+    <string name="my_count">Mon compte</string>
+    <string name="not_have_publications">Vous ne l\'avez pas fait toute publication. Cliquez sur cet écran si vous souhaitez ajouter votre première publication</string>
+    <string name="user_no_publications">Cet utilisateur n\'a pas de publications</string>
+    <string name="no_publications">Les utilisateurs que vous ne possédez pas encore les publications</string>
+    <string name="peregrinos_que_sigues">Pèlerins à vous suivre</string>
+    <string name="peregrinos_que_te_siguen">Pèlerins vous suivent</string>
+    <string name="no_followers">En ce moment il n\'y a pas les utilisateurs qui vous suivent.</string>
+    <string name="tu_camino">Votre chemin</string>
+    <string name="all">Tous</string>
+    <string name="cual_tu_camino">Quelle est votre façon?</string>
+    <string name="select_way">Choisissez votre chemin:</string>
+    <string name="select_way_loaging">Sélection mon chemin ...</string>
+    <string name="no_publicacions_this_way">De cette façon, il n\'y a toujours pas de publications</string>
+    <string name="location">Emplacement</string>
+    <string name="active_gps">Vous devez activer le GPS</string>
+    <string name="active_gps_location">Tournez sur le GPS pour un meilleur emplacement.</string>
+    <string name="msg">Si vous voulez capturer et partager les plus belles et spéciales moments de votre "Camino de Santiago" ceci est votre application. Invitez vos amis à conparir leurs aventures.</string>
+    <string name="invit">Inviter à utiliser SocialWay</string>
+
+</resources>
