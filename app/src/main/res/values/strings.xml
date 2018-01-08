@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">SocialWay</string>
 
+    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyBVIvgTtxV38hAkTS4snU-i7xnjS0KqKEQ</string>
+    <string name="gcm_defaultSenderId" translatable="false">862729702286</string>
+
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
