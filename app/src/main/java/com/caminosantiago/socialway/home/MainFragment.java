@@ -1,7 +1,6 @@
 package com.caminosantiago.socialway.home;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -13,12 +12,12 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 import com.caminosantiago.socialway.R;
-import com.caminosantiago.socialway.loadPublication.LoadPublicationFragment;
 
 public class MainFragment extends Fragment {
 
     private FragmentTabHost mTabHost;
     Activity activity;
+    private OnFragmentInteractionListener mListener;
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -31,7 +30,19 @@ public class MainFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity=activity;
+        this.activity = activity;
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -72,12 +83,15 @@ public class MainFragment extends Fragment {
         addPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(activity, LoadPublicationFragment.class);
-                startActivity(i);
-                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                mListener.goToPublish();
             }
         });
 
         return rootView;
     }
+
+    public interface OnFragmentInteractionListener {
+        void goToPublish();
+    }
+
 }

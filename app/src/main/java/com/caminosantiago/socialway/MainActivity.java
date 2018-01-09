@@ -3,7 +3,6 @@ package com.caminosantiago.socialway;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -31,9 +30,10 @@ import com.caminosantiago.socialway.model.User;
 import com.caminosantiago.socialway.user.UserFragment;
 
 
-public class MainActivity extends AppCompatActivity implements FollowingFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener, UserFragment.OnFragmentInteractionListener, FollowingFragment.OnFragmentInteractionListener, LoadPublicationFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
 
     TextView titleToolbar;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements FollowingFragment
             drawer.setDrawerListener(toggle);
             toggle.syncState();
 
-            final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
             navigationView.findViewById(R.id.headerView).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,12 +131,10 @@ public class MainActivity extends AppCompatActivity implements FollowingFragment
         return true;
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-    }
 
     @Override
     public void goToHome() {
+        navigationView.setCheckedItem(R.id.nav_home);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()).commit();
 
@@ -150,4 +148,15 @@ public class MainActivity extends AppCompatActivity implements FollowingFragment
         }
     }
 
+    @Override
+    public void goToPublish() {
+        navigationView.setCheckedItem(R.id.nav_publish);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, LoadPublicationFragment.newInstance()).commit();
+    }
+
+    @Override
+    public void goToProfile() {
+        navigationView.setCheckedItem(R.id.nav_profile);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, UserFragment.newInstance("", Utils.getUserID(MainActivity.this))).commit();
+    }
 }

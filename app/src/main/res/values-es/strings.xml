@@ -40,7 +40,7 @@
     <string name="add_image_or_description">Dede de añadir alguna imágen o  una descripción</string>
     <string name="loading">Cargando. Espere por favor...</string>
     <string name="enviando_publication">Enviando publicación...</string>
-    <string name="publication_ok">Publicaión realizada con éxito</string>
+    <string name="publication_ok">Publicación realizada con éxito</string>
     <string name="error_conection">Se ha producido un error de conexión</string>
     <string name="no_conect_touch_try_again">No se pudo conectar con el servidor. Toque la pantalla para intentarlo de nuevo.</string>
     <string name="title_activity_comments">CommentsActivity</string>

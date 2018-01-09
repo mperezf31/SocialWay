@@ -194,8 +194,6 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
 
 
     public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(Uri uri);
-
         void goToHome();
     }
 

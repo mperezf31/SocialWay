@@ -28,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caminosantiago.socialway.BuildConfig;
-import com.caminosantiago.socialway.MainActivity;
 import com.caminosantiago.socialway.MyApiEndpointInterface;
 import com.caminosantiago.socialway.R;
 import com.caminosantiago.socialway.Utils;
@@ -59,7 +58,6 @@ import retrofit.Retrofit;
 
 public class LoadPublicationFragment extends Fragment {
 
-
     EditText editTextDescripcion;
     GoogleMap googleMap;
     Marker marker;
@@ -70,9 +68,9 @@ public class LoadPublicationFragment extends Fragment {
     List<ImageView> listImageViews;
     LinearLayout layoutImages1;
     LinearLayout layoutImages2;
-
-
     View view;
+
+    private OnFragmentInteractionListener mListener;
 
     public static LoadPublicationFragment newInstance() {
         LoadPublicationFragment fragment = new LoadPublicationFragment();
@@ -92,12 +90,28 @@ public class LoadPublicationFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
     public void controlToolbar() {
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         TextView title1 = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
         title1.setText(R.string.add_publication);
     }
-
 
     protected void start() {
 
@@ -334,9 +348,9 @@ public class LoadPublicationFragment extends Fragment {
                 dialog.hide();
                 if (response.body().getStatus().equals("ok")) {
                     Toast.makeText(getActivity(), R.string.publication_ok, Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    mListener.goToProfile();
+
+
                 } else {
                     Toast.makeText(getActivity(), R.string.error_send_publication, Toast.LENGTH_LONG).show();
                 }
@@ -351,6 +365,11 @@ public class LoadPublicationFragment extends Fragment {
             }
         });
 
+    }
+
+
+    public interface OnFragmentInteractionListener {
+        void goToProfile();
     }
 
 }

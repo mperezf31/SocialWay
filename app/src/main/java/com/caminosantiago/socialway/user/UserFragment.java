@@ -8,12 +8,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.Toolbar;
@@ -41,7 +41,6 @@ import com.caminosantiago.socialway.Utils;
 import com.caminosantiago.socialway.WS;
 import com.caminosantiago.socialway.chat.SalaChat;
 import com.caminosantiago.socialway.comments.CommentsActivity;
-import com.caminosantiago.socialway.loadPublication.LoadPublicationFragment;
 import com.caminosantiago.socialway.model.ResultWS;
 import com.caminosantiago.socialway.model.User;
 import com.caminosantiago.socialway.model.query.ListComments;
@@ -83,6 +82,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     UserData userData;
     static UserFragment fragment;
     int positionSetComment = 0;
+    private OnFragmentInteractionListener mListener;
 
     // TODO: Rename and change types and number of parameters
     public static UserFragment newInstance(String param1, String param2) {
@@ -128,6 +128,24 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         return view;
     }
 
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 
     public void executeTaskGetUserData() {
         final ProgressDialog dialog = Utils.showDialog(activity, R.string.loading);
@@ -191,9 +209,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
                 layoutNoPublicationsMyUser.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(activity, LoadPublicationFragment.class);
-                        startActivity(i);
-                        activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        mListener.goToPublish();
                     }
                 });
             } else {
@@ -222,13 +238,6 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
                 }, 3000);
             }
         });
-    }
-
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = activity;
     }
 
 
@@ -549,5 +558,11 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         startActivityForResult(i, 15);
         activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
+
+
+    public interface OnFragmentInteractionListener {
+        void goToPublish();
+    }
+
 
 }
