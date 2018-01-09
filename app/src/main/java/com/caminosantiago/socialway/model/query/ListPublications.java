@@ -18,8 +18,6 @@ public class ListPublications implements Serializable {
     @SerializedName("favourites")
     List<Integer> favourites;
 
-    @SerializedName("header")
-    List<User> header;
 
     @SerializedName("listPublication")
     List<Publication> listPublication;
@@ -35,11 +33,5 @@ public class ListPublications implements Serializable {
     public List<Publication> getListPublication() {
         return listPublication;
     }
-
-    public List<User> getHeader() {
-        return header;
-    }
-
-
 
 }

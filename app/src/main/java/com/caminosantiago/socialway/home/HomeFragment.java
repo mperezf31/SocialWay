@@ -3,9 +3,7 @@ package com.caminosantiago.socialway.home;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -27,7 +25,6 @@ import com.caminosantiago.socialway.model.query.ListPublications;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -37,9 +34,6 @@ import retrofit.Retrofit;
 
 public class HomeFragment extends Fragment implements AdapterPublication.OnInteractionHome {
 
-    Handler mHandler;
-    Runnable mUpdateResults;
-    Timer timer;
     ListView list;
     Activity activity;
     int positionSetComment = -1;
@@ -173,16 +167,8 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        timer.cancel();
-        mHandler.removeCallbacks(mUpdateResults);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-
         if (positionSetComment != -1) {
             loadPublications();
             list.setSelection(positionSetComment + 1);
