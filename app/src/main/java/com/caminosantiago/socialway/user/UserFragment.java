@@ -83,6 +83,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     static UserFragment fragment;
     int positionSetComment = 0;
     private OnFragmentInteractionListener mListener;
+    private TextView titleToolbar;
 
     // TODO: Rename and change types and number of parameters
     public static UserFragment newInstance(String param1, String param2) {
@@ -110,15 +111,15 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_user, container, false);
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-        TextView title1 = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
+        titleToolbar = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
         pullRefreshLayout(view);
         listView = (ListView) view.findViewById(R.id.list);
         if (idUser.equals(Utils.getUserID(activity))) {
             header = inflater.inflate(R.layout.header_my_user, listView, false);
-            title1.setText(R.string.my_count);
+            titleToolbar.setText(R.string.my_count);
         } else {
             header = inflater.inflate(R.layout.header_user, listView, false);
-            title1.setText(R.string.app_name);
+            titleToolbar.setText("");
         }
 
         listView.addHeaderView(header, null, false);
@@ -250,6 +251,8 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
         nombreUser = (TextView) header.findViewById(R.id.textView);
         nombreUser.setText(data.getName());
+        titleToolbar.setText(data.getName());
+
         textViewEstadoUser = (TextView) header.findViewById(R.id.textViewEstadoUser);
         textViewEstadoUser.setText(data.getEstado());
 
