@@ -1,18 +1,15 @@
 package com.caminosantiago.socialway;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Application;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,7 +20,6 @@ import com.caminosantiago.socialway.model.LoadImage;
 import com.caminosantiago.socialway.model.Publication;
 import com.caminosantiago.socialway.model.ResultWS;
 import com.caminosantiago.socialway.model.User;
-import com.caminosantiago.socialway.model.query.ListComments;
 import com.caminosantiago.socialway.model.query.ListFavourites;
 import com.caminosantiago.socialway.model.query.UserData;
 import com.caminosantiago.socialway.user.UserActivity;
@@ -60,7 +56,7 @@ public class WS extends Application {
             dialog.show();
             final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
             MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-            Call<ResultWS> call = apiService.addFavourite(Utils.getIdUser(activity), idPublication);
+            Call<ResultWS> call = apiService.addFavourite(Utils.getUserID(activity), idPublication);
             call.enqueue(new Callback<ResultWS>() {
                 @Override
                 public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
@@ -95,7 +91,7 @@ public class WS extends Application {
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ResultWS> call = apiService.deleteFavourite(Utils.getIdUser(activity), idPublication);
+        Call<ResultWS> call = apiService.deleteFavourite(Utils.getUserID(activity), idPublication);
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
@@ -184,7 +180,7 @@ public class WS extends Application {
 
 
     public static  void taskSendImages(final Activity activity, Publication data){
-        LoadImage loadImage=new LoadImage(Utils.getIdUser(activity),data.getDescription().toString(),data.getLat(),data.getLon(),data.getListImages());
+        LoadImage loadImage=new LoadImage(Utils.getUserID(activity),data.getDescription().toString(),data.getLat(),data.getLon(),data.getListImages());
         final ProgressDialog dialog = Utils.showDialog(activity,R.string.enviando_publication);
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
@@ -221,7 +217,7 @@ public class WS extends Application {
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ResultWS> call = apiService.addFollow(Utils.getIdUser(activity), idUserFollow.getUserInfo().getId());
+        Call<ResultWS> call = apiService.addFollow(Utils.getUserID(activity), idUserFollow.getUserInfo().getId());
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
@@ -254,7 +250,7 @@ public class WS extends Application {
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ResultWS> call = apiService.addFollow(Utils.getIdUser(activity), idUserFollow.getId());
+        Call<ResultWS> call = apiService.addFollow(Utils.getUserID(activity), idUserFollow.getId());
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
@@ -288,7 +284,7 @@ public class WS extends Application {
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ResultWS> call = apiService.removeFollow(Utils.getIdUser(activity), idUserFollow.getUserInfo().getId());
+        Call<ResultWS> call = apiService.removeFollow(Utils.getUserID(activity), idUserFollow.getUserInfo().getId());
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
@@ -321,7 +317,7 @@ public class WS extends Application {
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ResultWS> call = apiService.removeFollow(Utils.getIdUser(activity), idUserFollow.getId());
+        Call<ResultWS> call = apiService.removeFollow(Utils.getUserID(activity), idUserFollow.getId());
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {

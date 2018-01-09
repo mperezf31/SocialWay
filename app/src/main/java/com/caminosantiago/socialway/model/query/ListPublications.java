@@ -15,15 +15,21 @@ public class ListPublications implements Serializable {
     @SerializedName("status")
     String status;
 
+    @SerializedName("userInfo")
+    User userInfo;
+
     @SerializedName("favourites")
     List<Integer> favourites;
-
 
     @SerializedName("listPublication")
     List<Publication> listPublication;
 
     public String getStatus() {
         return status;
+    }
+
+    public User getUserInfo() {
+        return userInfo;
     }
 
     public List<Integer> getFavourites() {

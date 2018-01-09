@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by root on 17/10/2015.
  */
-public class User implements Serializable{
+public class User implements Serializable {
 
 
     @SerializedName("id")
@@ -33,6 +33,13 @@ public class User implements Serializable{
 
     @SerializedName("lastConexion")
     String lastConexion;
+
+    public User(String id, String user, String avatar, String background) {
+        this.id = id;
+        this.name = user;
+        this.imageAvatar = avatar;
+        this.imageFondo = background;
+    }
 
     public String getLastConexion() {
         return lastConexion;

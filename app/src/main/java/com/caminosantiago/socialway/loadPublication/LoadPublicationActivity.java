@@ -192,7 +192,7 @@ public class LoadPublicationActivity extends AppCompatActivity {
 
                     } else {
                         String name = Utils.dateToString(new Date(), "yyyy-MM-dd-hh:mm:ss");
-                        destination = new File(Environment.getExternalStorageDirectory(), Utils.getIdUser(LoadPublicationActivity.this) + "SocialWay-" + name + ".jpg");
+                        destination = new File(Environment.getExternalStorageDirectory(), Utils.getUserID(LoadPublicationActivity.this) + "SocialWay-" + name + ".jpg");
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(destination));
                         startActivityForResult(intent, REQUEST_IMAGE);
@@ -282,9 +282,9 @@ public class LoadPublicationActivity extends AppCompatActivity {
             Snackbar.make(findViewById(android.R.id.content), R.string.add_one_image, Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
         }else{
             if (marker==null){
-                taskSendImages(new LoadImage(Utils.getIdUser(this),editTextDescripcion.getText().toString().trim(),(double)0,(double)0,listImages));
+                taskSendImages(new LoadImage(Utils.getUserID(this),editTextDescripcion.getText().toString().trim(),(double)0,(double)0,listImages));
             }else{
-                taskSendImages(new LoadImage(Utils.getIdUser(this),editTextDescripcion.getText().toString().trim(),marker.getPosition().latitude,marker.getPosition().longitude,listImages));
+                taskSendImages(new LoadImage(Utils.getUserID(this),editTextDescripcion.getText().toString().trim(),marker.getPosition().latitude,marker.getPosition().longitude,listImages));
             }
         }
     }

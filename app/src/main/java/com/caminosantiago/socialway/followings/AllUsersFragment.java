@@ -94,7 +94,7 @@ public class AllUsersFragment extends Fragment  {
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ListFollowings> call = apiService.getAllUsers(Utils.getIdUser(activity));
+        Call<ListFollowings> call = apiService.getAllUsers(Utils.getUserID(activity));
         call.enqueue(new Callback<ListFollowings>() {
             @Override
             public void onResponse(Response<ListFollowings> response, Retrofit retrofit) {

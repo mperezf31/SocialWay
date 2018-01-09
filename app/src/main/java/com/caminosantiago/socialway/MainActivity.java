@@ -2,11 +2,14 @@ package com.caminosantiago.socialway;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,13 +17,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.caminosantiago.socialway.chat.notifications.RegistrationIntentService;
 import com.caminosantiago.socialway.followings.FollowingFragment;
 import com.caminosantiago.socialway.followings.UsersMainFragment;
 import com.caminosantiago.socialway.home.MainFragment;
 import com.caminosantiago.socialway.loadPublication.LoadPublicationActivity;
+import com.caminosantiago.socialway.model.User;
 import com.caminosantiago.socialway.user.UserFragment;
 
 
@@ -47,7 +54,32 @@ public class MainActivity extends AppCompatActivity implements FollowingFragment
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open,
-                    R.string.navigation_drawer_close);
+                    R.string.navigation_drawer_close) {
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+                    User userData = Utils.getUserData(MainActivity.this);
+
+                    if (userData.getImageAvatar() != null && !userData.getImageAvatar().isEmpty()) {
+                        final ImageView iconUser = (ImageView) drawerView.findViewById(R.id.imageViewUserAvatar);
+                        Glide.with(MainActivity.this).load(userData.getImageAvatar()).asBitmap().fitCenter().error(R.drawable.default_avatar).into(new BitmapImageViewTarget(iconUser) {
+                            @Override
+                            protected void setResource(Bitmap resource) {
+                                RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), resource);
+                                circularBitmapDrawable.setCircular(true);
+                                iconUser.setImageDrawable(circularBitmapDrawable);
+                            }
+                        });
+                    }
+
+                    if (userData.getName() != null) {
+                        ((TextView) drawerView.findViewById(R.id.textViewUserName)).setText(userData.getName());
+                    }
+                }
+            };
+
+            drawer.setDrawerListener(toggle);
+
             drawer.setDrawerListener(toggle);
             toggle.syncState();
 
@@ -58,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements FollowingFragment
                 public void onClick(View view) {
                     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                     drawer.closeDrawer(GravityCompat.START);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, UserFragment.newInstance("", Utils.getIdUser(MainActivity.this))).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, UserFragment.newInstance("", Utils.getUserID(MainActivity.this))).commit();
                 }
             });
 

@@ -20,6 +20,7 @@ import com.caminosantiago.socialway.R;
 import com.caminosantiago.socialway.Utils;
 import com.caminosantiago.socialway.comments.CommentsActivity;
 import com.caminosantiago.socialway.model.Publication;
+import com.caminosantiago.socialway.model.User;
 import com.caminosantiago.socialway.model.query.ListComments;
 import com.caminosantiago.socialway.model.query.ListPublications;
 
@@ -87,7 +88,7 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
-        Call<ListPublications> call = apiService.getPublications(Utils.getIdUser(activity), Utils.getAllCurrentDate(), Utils.getMyToken(activity));
+        Call<ListPublications> call = apiService.getPublications(Utils.getUserID(activity), Utils.getAllCurrentDate(), Utils.getMyToken(activity));
         call.enqueue(new Callback<ListPublications>() {
             @Override
             public void onResponse(Response<ListPublications> response, Retrofit retrofit) {
@@ -96,6 +97,7 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
                     dialog.dismiss();
 
                 if (response.body() != null && response.body().getStatus().equals("ok")) {
+                    saveUserInfo(response.body().getUserInfo());
                     listPublications = response.body().getListPublication();
                     listFavourites = response.body().getFavourites();
                     loadPublications();
@@ -115,6 +117,10 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
         });
 
 
+    }
+
+    private void saveUserInfo(User userInfo) {
+        Utils.saveUser(getActivity(), userInfo.getId(), userInfo.getName(), userInfo.getImageAvatar(), userInfo.getImageFondo());
     }
 
 

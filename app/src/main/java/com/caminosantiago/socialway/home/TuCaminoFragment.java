@@ -162,7 +162,7 @@ public class TuCaminoFragment extends Fragment implements AdapterPublication.OnI
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ResultWS> call = apiService.setWay(Utils.getIdUser(activity), camino);
+        Call<ResultWS> call = apiService.setWay(Utils.getUserID(activity), camino);
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
@@ -192,7 +192,7 @@ public class TuCaminoFragment extends Fragment implements AdapterPublication.OnI
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ListPublications> call = apiService.getPublicationsWay(Utils.getIdUser(activity),Utils.getUserCamino(activity));
+        Call<ListPublications> call = apiService.getPublicationsWay(Utils.getUserID(activity),Utils.getUserCamino(activity));
         call.enqueue(new Callback<ListPublications>() {
             @Override
             public void onResponse(Response<ListPublications> response, Retrofit retrofit) {

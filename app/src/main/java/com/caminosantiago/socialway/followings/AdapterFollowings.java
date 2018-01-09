@@ -79,7 +79,7 @@ public class AdapterFollowings extends ArrayAdapter<User> {
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ResultWS> call = apiService.removeFollow(Utils.getIdUser(activity), data.getId());
+        Call<ResultWS> call = apiService.removeFollow(Utils.getUserID(activity), data.getId());
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {

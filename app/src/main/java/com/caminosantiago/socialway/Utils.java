@@ -1,4 +1,5 @@
 package com.caminosantiago.socialway;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.caminosantiago.socialway.chat.notifications.RegistrationIntentService;
+import com.caminosantiago.socialway.model.User;
 import com.google.android.gms.maps.model.LatLng;
 import com.caminosantiago.socialway.model.Publication;
 
@@ -41,40 +43,32 @@ import java.util.concurrent.TimeUnit;
 public class Utils {
 
 
-    public static String getAllCurrentDate(){
+    public static String getAllCurrentDate() {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("HH:mm dd/MM/yyyy");
         String formattedDate = df.format(c.getTime());
-        return  formattedDate;
+        return formattedDate;
     }
 
-   public static String getCurrentDate(){
+    public static String getCurrentDate() {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("HH:mm dd/MM");
-       String formattedDate = df.format(c.getTime());
-        return  formattedDate;
+        String formattedDate = df.format(c.getTime());
+        return formattedDate;
     }
 
     public static String dateToString(Date date, String format) {
         SimpleDateFormat df = new SimpleDateFormat(format);
         return df.format(date);
     }
-    public static String getMyToken(Activity activity){
+
+    public static String getMyToken(Activity activity) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         return sharedPreferences.getString("tokenNotifications", "");
     }
 
     //Funcion para guardar el usuario
-    public static void logout(Context context){
-        SharedPreferences prefs = context.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("login", false);
-        editor.commit();
-
-    }
-
-    //Funcion para guardar el usuario
-    public static void saveUserCamino(Context context,String camino){
+    public static void saveUserCamino(Context context, String camino) {
         SharedPreferences prefs = context.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("camino", camino);
@@ -82,25 +76,27 @@ public class Utils {
 
     }
 
-    public static String getUserCamino(Context context){
+    public static String getUserCamino(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
-        return prefs.getString("camino","");
+        return prefs.getString("camino", "");
     }
 
 
     //Funcion para guardar el usuario
-    public static void saveUser(Context context,String id,String user){
+    public static void saveUser(Context context, String id, String user, String avatar, String background) {
         SharedPreferences prefs = context.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("login", true);
         editor.putString("id", id);
         editor.putString("user", user);
+        editor.putString("avatar", avatar);
+        editor.putString("background", background);
         editor.commit();
 
     }
 
     //Funcion para guardar el usuario
-    public static void updateUserName(Context context,String user){
+    public static void updateUserName(Context context, String user) {
         SharedPreferences prefs = context.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("user", user);
@@ -108,30 +104,29 @@ public class Utils {
 
     }
 
-    public static String getIdUser(Context context){
+    public static User getUserData(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
-        return prefs.getString("id","");
+        return new User(prefs.getString("id", ""), prefs.getString("user", ""), prefs.getString("avatar", ""), prefs.getString("background", ""));
     }
 
-    public static String getNameUser(Context context){
-        SharedPreferences prefs = context.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
-        return prefs.getString("user","");
+    public static String getUserID(Context context) {
+        return getUserData(context).getId();
     }
 
     //Función para saber si un usuario está logueado
-    public static boolean isLogin(Context context){
+    public static boolean isLogin(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
 
-        if(prefs.getBoolean("login",false)){
+        if (prefs.getBoolean("login", false)) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
     }
 
 
-    public static ProgressDialog showDialog(Activity activity,int msg){
+    public static ProgressDialog showDialog(Activity activity, int msg) {
         final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(activity.getResources().getString(msg));
@@ -140,7 +135,8 @@ public class Utils {
         try {
             dialog.show();
 
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return dialog;
     }
@@ -150,18 +146,17 @@ public class Utils {
     }
 
 
-    public static boolean isFavourite(List<Integer> list,int idPublication){
-        for( int i = 0 ; i < list.size() ; i++ ){
-           if (list.get(i)==idPublication)
-               return true;
+    public static boolean isFavourite(List<Integer> list, int idPublication) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == idPublication)
+                return true;
         }
 
         return false;
     }
 
 
-
-    public static  void publicar(final Activity activity, final Publication publication, final int numImage){
+    public static void publicar(final Activity activity, final Publication publication, final int numImage) {
 
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -195,9 +190,7 @@ public class Utils {
     }
 
 
-
-
-    public static void shareimage (Activity activity,Publication publication,Bitmap bitmap) {
+    public static void shareimage(Activity activity, Publication publication, Bitmap bitmap) {
 
         OutputStream output;
 
@@ -220,7 +213,7 @@ public class Utils {
             output.close();
             Uri uri = Uri.fromFile(file);
             share.putExtra(Intent.EXTRA_STREAM, uri);
-            share.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.app_name)+" - Camino de Santiago");
+            share.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.app_name) + " - Camino de Santiago");
             activity.startActivity(Intent.createChooser(share, activity.getString(R.string.share_publication)));
 
         } catch (Exception e) {
@@ -231,7 +224,7 @@ public class Utils {
 
 
     public static String formatDate(String time) {
-        Log.w("MAP",time);
+        Log.w("MAP", time);
         String inputPattern = "yyyy-MM-dd HH:mm:ss";
         String outputPattern = "HH:mm dd-MM-yyyy";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
@@ -252,8 +245,7 @@ public class Utils {
     }
 
 
-
-    public static boolean isServiceRunning(Activity activity,Class<?> serviceClass) {
+    public static boolean isServiceRunning(Activity activity, Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
@@ -263,20 +255,19 @@ public class Utils {
         return false;
     }
 
-    public static LatLng getLocation(Activity activity){
+    public static LatLng getLocation(Activity activity) {
         SharedPreferences prefs = activity.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
-        return new LatLng(prefs.getFloat("latitude",42.52f), prefs.getFloat("longitude", -08.32f));
+        return new LatLng(prefs.getFloat("latitude", 42.52f), prefs.getFloat("longitude", -08.32f));
     }
 
 
-    public static String getLastTimeLocation(Activity activity){
+    public static String getLastTimeLocation(Activity activity) {
         SharedPreferences prefs = activity.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
         return prefs.getString("updadePosition", "2014-11-06 11:52:52");
     }
 
 
-
-    public static String formatDateChat(Context context,String time){
+    public static String formatDateChat(Context context, String time) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 
         Date date = null;
@@ -285,17 +276,17 @@ public class Utils {
         try {
             date = inputFormat.parse(time);
 
-            Long diff = Calendar.getInstance().getTime().getTime()-date.getTime();//as given
+            Long diff = Calendar.getInstance().getTime().getTime() - date.getTime();//as given
             long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
 
-            if (minutes<5)
-                res=context.getString(R.string.online);
-            else if (minutes<60)
-                res=context.getString(R.string.ult_vez_hace)+" "+minutes +" m";
-            else if (minutes<1440)
-                res=context.getString(R.string.ult_vez_hace)+" "+(int)(minutes/60)+" h";
+            if (minutes < 5)
+                res = context.getString(R.string.online);
+            else if (minutes < 60)
+                res = context.getString(R.string.ult_vez_hace) + " " + minutes + " m";
+            else if (minutes < 1440)
+                res = context.getString(R.string.ult_vez_hace) + " " + (int) (minutes / 60) + " h";
             else
-                res=context.getString(R.string.ult_vez_desde)+" "+time;
+                res = context.getString(R.string.ult_vez_desde) + " " + time;
 
 
         } catch (ParseException e) {

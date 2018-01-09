@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -98,7 +97,7 @@ public class HomeFollowingsFragment extends Fragment implements AdapterPublicati
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ListPublications> call = apiService.getPublicationsFollowings(Utils.getIdUser(activity));
+        Call<ListPublications> call = apiService.getPublicationsFollowings(Utils.getUserID(activity));
         call.enqueue(new Callback<ListPublications>() {
             @Override
             public void onResponse(Response<ListPublications> response, Retrofit retrofit) {

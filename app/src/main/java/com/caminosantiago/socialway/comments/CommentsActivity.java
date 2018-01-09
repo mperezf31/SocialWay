@@ -106,7 +106,7 @@ public class CommentsActivity extends AppCompatActivity {
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ListComments> call = apiService.addComments(Utils.getIdUser(CommentsActivity.this), listComments.getIdPublication(), msg);
+        Call<ListComments> call = apiService.addComments(Utils.getUserID(CommentsActivity.this), listComments.getIdPublication(), msg);
         call.enqueue(new Callback<ListComments>() {
             @Override
             public void onResponse(Response<ListComments> response, Retrofit retrofit) {

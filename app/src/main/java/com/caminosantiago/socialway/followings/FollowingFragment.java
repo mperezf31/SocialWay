@@ -93,7 +93,7 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ListFollowings> call = apiService.getFollowings(Utils.getIdUser(activity));
+        Call<ListFollowings> call = apiService.getFollowings(Utils.getUserID(activity));
         call.enqueue(new Callback<ListFollowings>() {
             @Override
             public void onResponse(Response<ListFollowings> response, Retrofit retrofit) {

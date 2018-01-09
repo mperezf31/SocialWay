@@ -30,7 +30,6 @@ import com.caminosantiago.socialway.R;
 import com.caminosantiago.socialway.Utils;
 import com.caminosantiago.socialway.chat.notifications.MyGcmListenerService;
 import com.caminosantiago.socialway.model.User;
-import com.caminosantiago.socialway.model.query.ListFollowings;
 import com.caminosantiago.socialway.model.query.UserData;
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.MulticastResult;
@@ -70,7 +69,7 @@ public class SalaChat extends AppCompatActivity {
 
 		list = (ListView)findViewById(R.id.listviewSalaChat);
 		textoAEnviar = (EditText)findViewById(R.id.editTextEnviar);
-		idMyUser=Utils.getIdUser(this);
+		idMyUser=Utils.getUserID(this);
 
 		otherUser= (User) getIntent().getExtras().getSerializable("user");
 
@@ -268,7 +267,7 @@ public class SalaChat extends AppCompatActivity {
 				//add you deviceI
 				devicesList.add(tokenOtherUser);
 				// use this line to send message with payload data
-				Message message = new Message.Builder().delayWhileIdle(true).addData("msg", params[0]).addData("myIdUser", idMyUser).addData("nameUser", Utils.getNameUser(SalaChat.this)).addData("idUser",otherUser.getId()).build();
+				Message message = new Message.Builder().delayWhileIdle(true).addData("msg", params[0]).addData("myIdUser", idMyUser).addData("nameUser", Utils.getUserID(SalaChat.this)).addData("idUser",otherUser.getId()).build();
 				// Use this for multicast messages
 				MulticastResult result = sender.send(message, devicesList, 1);
 

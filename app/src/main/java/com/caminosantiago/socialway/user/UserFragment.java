@@ -113,7 +113,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         TextView title1 = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
         pullRefreshLayout(view);
         listView = (ListView)view.findViewById(R.id.list);
-        if (idUser.equals(Utils.getIdUser(activity)))
+        if (idUser.equals(Utils.getUserID(activity)))
         {
             header = inflater.inflate(R.layout.header_my_user, listView, false);
             title1.setText(R.string.my_count);
@@ -137,14 +137,14 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         final ProgressDialog dialog = Utils.showDialog(activity, R.string.loading);
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<UserData> call = apiService.getUserData(Utils.getMyToken(activity),Utils.getIdUser(activity),idUser);
+        Call<UserData> call = apiService.getUserData(Utils.getMyToken(activity),Utils.getUserID(activity),idUser);
         call.enqueue(new Callback<UserData>() {
             @Override
             public void onResponse(Response<UserData> response, Retrofit retrofit) {
                 dialog.dismiss();
                 userData = response.body();
                 if (userData.getStatus().equals("ok")) {
-                    if (idUser.equals(Utils.getIdUser(activity)))
+                    if (idUser.equals(Utils.getUserID(activity)))
                         controlMyHeader(userData.getUserInfo());
                     else
                         controlHeader(userData.getUserInfo());
@@ -191,7 +191,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
 
         if (userData.getListPublication().size()==0){
-            if (idUser.equals(Utils.getIdUser(activity))){
+            if (idUser.equals(Utils.getUserID(activity))){
                 layoutNoPublicationsMyUser.setVisibility(View.VISIBLE);
                 layoutNoPublicationsMyUser.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -351,7 +351,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
                 } else {
                     String name = Utils.dateToString(new Date(), "yyyy-MM-dd-hh:mm:ss");
-                    destination = new File(Environment.getExternalStorageDirectory(), Utils.getIdUser(activity) + "SocialWay-" + name + ".jpg");
+                    destination = new File(Environment.getExternalStorageDirectory(), Utils.getUserID(activity) + "SocialWay-" + name + ".jpg");
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(destination));
                     startActivityForResult(intent, REQUEST_IMAGE);
@@ -424,7 +424,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ResultWS> call = apiService.setAvatar(Utils.getIdUser(activity), data);
+        Call<ResultWS> call = apiService.setAvatar(Utils.getUserID(activity), data);
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
@@ -463,7 +463,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ResultWS> call = apiService.setImagenFondo(Utils.getIdUser(activity), data);
+        Call<ResultWS> call = apiService.setImagenFondo(Utils.getUserID(activity), data);
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
@@ -523,7 +523,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<ResultWS> call = apiService.setTezts(Utils.getIdUser(activity), nombre, estado);
+        Call<ResultWS> call = apiService.setTezts(Utils.getUserID(activity), nombre, estado);
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
