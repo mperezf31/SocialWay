@@ -69,8 +69,8 @@
     <string name="peregrinos_que_sigues">Pilgrims you follow</string>
     <string name="peregrinos_que_te_siguen">Pilgrims follow you</string>
     <string name="no_followers">Right now there are no users who follow you.</string>
-    <string name="tu_camino">In your way</string>
-    <string name="all">All</string>
+    <string name="tu_camino">On my way</string>
+    <string name="all">Publications</string>
     <string name="cual_tu_camino">What is your way?</string>
     <string name="select_way">Choose your way:</string>
     <string name="select_way_loaging">Selecting my way ...</string>

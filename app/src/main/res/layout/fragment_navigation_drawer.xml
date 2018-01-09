@@ -1,31 +1,28 @@
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
+    android:background="@color/blue">
 
     <ImageView
-        android:layout_marginRight="7dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_menu4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="7dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_menu4" />
 
     <ListView
         android:id="@+id/listMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:dividerHeight="0dp" />
 
 </RelativeLayout>
 
