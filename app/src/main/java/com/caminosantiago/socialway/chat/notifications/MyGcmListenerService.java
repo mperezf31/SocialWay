@@ -87,7 +87,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(getNotificationIcon())
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_socialway))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setContentTitle(title)
                 .setContentText(msg)
                 .setAutoCancel(true)
@@ -108,7 +108,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(getNotificationIcon())
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_socialway))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setContentTitle(nameUser)
                 .setContentText(message)
                 .setAutoCancel(true)
@@ -131,6 +131,6 @@ public class MyGcmListenerService extends GcmListenerService {
 
     private int getNotificationIcon() {
         boolean whiteIcon = (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP);
-        return whiteIcon ? R.drawable.icon_notification : R.mipmap.ic_launcher_socialway;
+        return whiteIcon ? R.drawable.icon_notification : R.mipmap.ic_launcher;
     }
 }

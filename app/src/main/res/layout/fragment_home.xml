@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/darker_gray"
-    android:id = "@+id/container_home"
+    android:id="@+id/container_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.redegal.trazers.home.Home">
+    android:background="@android:color/darker_gray">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,20 +17,20 @@
 
             <ListView
                 android:id="@+id/list"
-                android:divider="@android:color/transparent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"  />
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent" />
         </com.baoyz.widget.PullRefreshLayout>
 
     </RelativeLayout>
 
 
-    <include layout="@layout/error_conection"/>
-    <include layout="@layout/no_publications_followings"/>
-    <include layout="@layout/select_way"/>
-    <include layout="@layout/no_publications_way"/>
+    <include layout="@layout/error_conection" />
 
+    <include layout="@layout/no_publications_followings" />
 
+    <include layout="@layout/select_way" />
 
+    <include layout="@layout/no_publications_way" />
 
 </FrameLayout>

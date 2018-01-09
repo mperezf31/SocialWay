@@ -69,10 +69,10 @@ public class MainFragment extends Fragment {
                } else if (checkedId==R.id.radioButton2){
                      fragmentManager.beginTransaction().replace(R.id.containerMain, TuCaminoFragment.newInstance()) .commit();
 
-               }else if (checkedId==R.id.radioButton3){
+               }/*else if (checkedId==R.id.radioButton3){
                    fragmentManager.beginTransaction().replace(R.id.containerMain, HomeFollowingsFragment.newInstance()) .commit();
 
-               }
+               }*/
             }
         });
 
