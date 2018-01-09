@@ -3,6 +3,7 @@ package com.caminosantiago.socialway;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,7 +16,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ActionProvider;
+import android.view.ContextMenu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements FollowingFragment
             startActivity(intent);
             finish();
         } else {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open,
                     R.string.navigation_drawer_close) {
@@ -83,14 +87,14 @@ public class MainActivity extends AppCompatActivity implements FollowingFragment
             drawer.setDrawerListener(toggle);
             toggle.syncState();
 
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
             navigationView.findViewById(R.id.headerView).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                    drawer.closeDrawer(GravityCompat.START);
+                    navigationView.setCheckedItem(R.id.nav_profile);
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, UserFragment.newInstance("", Utils.getUserID(MainActivity.this))).commit();
+                    drawer.closeDrawer(GravityCompat.START);
                 }
             });
 
@@ -122,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements FollowingFragment
             Intent i = new Intent(this, LoadPublicationActivity.class);
             startActivity(i);
             overridePendingTransition(R.anim.indicator_no_animator, R.anim.indicator_no_animator);
+        } else if (id == R.id.nav_profile) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, UserFragment.newInstance("", Utils.getUserID(MainActivity.this))).commit();
         } else if (id == R.id.nav_help) {
             fragmentManager.beginTransaction().replace(R.id.container, HelpFragment.newInstance()).commit();
         }

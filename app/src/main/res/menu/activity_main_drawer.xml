@@ -15,6 +15,10 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/add_publication" />
         <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="@string/my_count" />
+        <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_help"
             android:title="@string/help" />

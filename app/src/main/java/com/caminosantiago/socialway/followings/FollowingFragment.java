@@ -44,22 +44,24 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
     ListFollowings listFollowings;
     TextView titleFollow;
     private OnFragmentInteractionListener mListener;
+
     public static FollowingFragment newInstance() {
         fragment = new FollowingFragment();
         return fragment;
     }
 
-    public FollowingFragment() { }
+    public FollowingFragment() {
+    }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,   Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_following, container, false);
-        titleFollow=(TextView)view.findViewById(R.id.titleFollow);
+        view = inflater.inflate(R.layout.fragment_following, container, false);
+        titleFollow = (TextView) view.findViewById(R.id.titleFollow);
         titleFollow.setText(R.string.peregrinos_que_sigues);
         controlToolbar();
-        listView=(ListView)view.findViewById(R.id.listView2);
+        listView = (ListView) view.findViewById(R.id.listView2);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -67,7 +69,7 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
             }
         });
 
-        refreshLayout = (PullRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
+        refreshLayout = (PullRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -79,22 +81,19 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
     }
 
 
-
-    public void controlToolbar(){
+    public void controlToolbar() {
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         TextView title1 = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
         title1.setText(R.string.app_name);
     }
 
 
-
-
-    public void executeTaskGetFollowings(){
+    public void executeTaskGetFollowings() {
         if (!refreshLayout.isActivated())
             dialog = Utils.showDialog(activity, R.string.loading);
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
+        MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
         Call<ListFollowings> call = apiService.getFollowings(Utils.getUserID(activity));
         call.enqueue(new Callback<ListFollowings>() {
             @Override
@@ -104,7 +103,7 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
                     dialog.dismiss();
 
                 if (response.body().getStatus().equals("ok")) {
-                    listFollowings=response.body();
+                    listFollowings = response.body();
                     showFollowings();
                 } else {
                     errorLoadDate();
@@ -125,8 +124,6 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
     }
 
 
-
-
     public void errorLoadDate() {
         final RelativeLayout layoutErrorConection = (RelativeLayout) view.findViewById(R.id.layoutErrorConection);
         layoutErrorConection.setVisibility(View.VISIBLE);
@@ -141,30 +138,22 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
     }
 
 
-    public void showFollowings(){
-        if (listFollowings.getUsers().size()!=0){
-            mAdapter = new AdapterFollowings(fragment,activity, listFollowings.getUsers());
+    public void showFollowings() {
+        if (listFollowings.getUsers().size() != 0) {
+            mAdapter = new AdapterFollowings(fragment, activity, listFollowings.getUsers());
             listView.setAdapter(mAdapter);
-            titleFollow.setText( getString(R.string.peregrinos_que_sigues)+" ("+listFollowings.getUsers().size()+")");
+            titleFollow.setText(getString(R.string.peregrinos_que_sigues) + " (" + listFollowings.getUsers().size() + ")");
 
-        }else{
+        } else {
             final RelativeLayout layoutNoFollowings = (RelativeLayout) view.findViewById(R.id.layoutNoFollowings);
             layoutNoFollowings.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity=activity;
+        this.activity = activity;
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -183,7 +172,7 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
     public void deleteItem(User user) {
         mAdapter.remove(user);
         titleFollow.setText(getString(R.string.peregrinos_que_sigues) + " (" + listFollowings.getUsers().size() + ")");
-        if (mAdapter.getCount()==0){
+        if (mAdapter.getCount() == 0) {
             final RelativeLayout layoutNoFollowings = (RelativeLayout) view.findViewById(R.id.layoutNoFollowings);
             layoutNoFollowings.setVisibility(View.VISIBLE);
             layoutNoFollowings.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +187,7 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
 
     public void gotoUser(User user) {
         Intent i = new Intent(activity, UserActivity.class);
-        i.putExtra("idUser",user.getId());
+        i.putExtra("idUser", user.getId());
         activity.startActivity(i);
         activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -206,7 +195,8 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
 
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
-         void goToHome();
+
+        void goToHome();
     }
 
     @Override
