@@ -135,10 +135,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
                 dialog.dismiss();
-                ResultWS res=response.body();
-                Log.e("Datos de respuesta", res.getName());
 
-                if (response.body().getStatus().equals("ok")){
+                if (response!=null && response.body().getStatus().equals("ok")){
+                    ResultWS res=response.body();
+                    Log.e("Datos de respuesta", res.getName());
+
                     Utils.saveUser(LoginActivity.this, res.getId(), res.getName());
 
                     Intent intent=new Intent(LoginActivity.this,MainActivity.class);

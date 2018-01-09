@@ -23,7 +23,7 @@ import com.caminosantiago.socialway.loadPublication.LoadPublicationActivity;
 import com.caminosantiago.socialway.user.UserFragment;
 
 
-public class MainActivity extends AppCompatActivity implements FollowingFragment.OnFragmentInteractionListener,NavigationDrawerFragment.NavigationDrawerCallbacks,HomeFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements FollowingFragment.OnFragmentInteractionListener,NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
