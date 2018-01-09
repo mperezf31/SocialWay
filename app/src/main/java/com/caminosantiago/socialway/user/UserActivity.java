@@ -8,7 +8,7 @@ import android.view.MenuItem;
 
 import com.caminosantiago.socialway.R;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity implements UserFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,4 +45,6 @@ public class UserActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void goToPublish() { }
 }
