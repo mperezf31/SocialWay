@@ -31,7 +31,7 @@
     <string name="title_activity_load_publication">LoadPublicationActivity</string>
     <string name="add_image">Ajouter une image</string>
     <string name="descipcion">Description de ...</string>
-    <string name="add_publication">Ajouter la publication</string>
+    <string name="add_publication">Publier</string>
     <string name="add_location">Ajouter un emplacement</string>
     <string name="addimage">Ajouter une image</string>
     <string name="go_to_camera">Accédez à la caméra</string>
