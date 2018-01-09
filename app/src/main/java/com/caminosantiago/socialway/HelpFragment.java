@@ -43,10 +43,8 @@ public class HelpFragment extends Fragment {
     public void controlToolbar(){
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         TextView title1 = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
-        title1.setText(R.string.app_name);
+        title1.setText(R.string.help);
     }
-
-
 
 
     public void executeTaskGetInfo(){
@@ -78,7 +76,6 @@ public class HelpFragment extends Fragment {
 
 
     }
-
 
 
     public void errorLoadDate() {

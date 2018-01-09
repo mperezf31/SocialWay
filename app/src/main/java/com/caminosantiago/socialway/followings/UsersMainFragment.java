@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.caminosantiago.socialway.R;
 import com.caminosantiago.socialway.followings.followers.FollowersFragment;
@@ -56,7 +58,14 @@ public class UsersMainFragment extends Fragment {
             }
         });
 
-
+        controlToolbar();
         return rootView;
+    }
+
+
+    public void controlToolbar() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        TextView title1 = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
+        title1.setText(R.string.pilgrims);
     }
 }
