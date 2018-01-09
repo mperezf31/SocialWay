@@ -80,6 +80,8 @@
     <string name="pilgrims">Peregrinos</string>
     <string name="help">Ayuda</string>
     <string name="home">inicio</string>
+    <string name="all_users">Todos</string>
+    <string name="my_friends">Mis amigos</string>
 
 
 </resources>

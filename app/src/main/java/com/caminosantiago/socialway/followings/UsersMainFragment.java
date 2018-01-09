@@ -50,8 +50,8 @@ public class UsersMainFragment extends Fragment {
                 }else if (checkedId==R.id.radioButton){
                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                    fragmentManager.beginTransaction().replace(R.id.containerMain, FollowingFragment.newInstance()) .commit();
-               } else
-                     fragmentManager.beginTransaction().replace(R.id.containerMain, FollowersFragment.newInstance()) .commit();
+               }/* else
+                     fragmentManager.beginTransaction().replace(R.id.containerMain, FollowersFragment.newInstance()) .commit();*/
 
             }
         });

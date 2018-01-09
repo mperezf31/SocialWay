@@ -80,5 +80,7 @@
     <string name="pilgrims">Pèlerins</string>
     <string name="help">Aider</string>
     <string name="home">Accueil</string>
+    <string name="all_users">tout</string>
+    <string name="my_friends">Mes amies</string>
 
 </resources>

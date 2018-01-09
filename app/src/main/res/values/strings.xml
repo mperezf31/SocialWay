@@ -80,7 +80,7 @@
     <string name="active_gps_location">Turn on GPS for a better location.</string>
     <string name="msg">If you want to capture and share the most beautiful and special moments of your Camino de Santiago this is your application. Invite your friends to share their adventures.</string>
     <string name="invit">Invit to use SocialWay</string>
-    <string name="all_users">All users</string>
+    <string name="all_users">All</string>
     <string name="search">Search</string>
     <string name="send">Enviar</string>
     <string name="online">En línea</string>
@@ -89,6 +89,7 @@
     <string name="pilgrims">Pilgrims</string>
     <string name="help">Help</string>
     <string name="home">Home</string>
+    <string name="my_friends">My friends</string>
 
 
 </resources>
