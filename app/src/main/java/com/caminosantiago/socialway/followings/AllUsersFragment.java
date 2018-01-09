@@ -56,7 +56,6 @@ public class AllUsersFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,   Bundle savedInstanceState) {
         view= inflater.inflate(R.layout.fragment_all_users, container, false);
-        controlToolbar();
         listView=(ListView)view.findViewById(R.id.listView2);
         refreshLayout = (PullRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
         refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
@@ -76,16 +75,6 @@ public class AllUsersFragment extends Fragment  {
         executeTaskGetAllUsers();
         return view;
     }
-
-
-
-    public void controlToolbar(){
-        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-        TextView title1 = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
-        title1.setText(R.string.app_name);
-    }
-
-
 
 
     public void executeTaskGetAllUsers(){

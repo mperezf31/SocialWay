@@ -60,7 +60,6 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
         view = inflater.inflate(R.layout.fragment_following, container, false);
         titleFollow = (TextView) view.findViewById(R.id.titleFollow);
         titleFollow.setText(R.string.peregrinos_que_sigues);
-        controlToolbar();
         listView = (ListView) view.findViewById(R.id.listView2);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -79,14 +78,6 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
 
         return view;
     }
-
-
-    public void controlToolbar() {
-        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-        TextView title1 = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
-        title1.setText(R.string.app_name);
-    }
-
 
     public void executeTaskGetFollowings() {
         if (!refreshLayout.isActivated())
