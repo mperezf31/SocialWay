@@ -104,6 +104,15 @@ public class Utils {
 
     }
 
+    //Funcion para guardar el avatar
+    public static void updateUserAvatar(Context context, String avatar) {
+        SharedPreferences prefs = context.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("avatar", avatar);
+        editor.commit();
+
+    }
+
     public static User getUserData(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
         return new User(prefs.getString("id", ""), prefs.getString("user", ""), prefs.getString("avatar", ""), prefs.getString("background", ""));

@@ -72,17 +72,17 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     ListView listView;
     View view;
     View header;
-    int REQUEST_IMAGE=2;
-    int PICK_IMAGE=1;
+    int REQUEST_IMAGE = 2;
+    int PICK_IMAGE = 1;
     File destination;
-    int imageSet=0;
+    int imageSet = 0;
     ImageView ImageViewHeader;
     ImageView iconUser;
     TextView nombreUser;
     TextView textViewEstadoUser;
     UserData userData;
     static UserFragment fragment;
-    int positionSetComment=0;
+    int positionSetComment = 0;
 
     // TODO: Rename and change types and number of parameters
     public static UserFragment newInstance(String param1, String param2) {
@@ -108,18 +108,15 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view= inflater.inflate(R.layout.fragment_user, container, false);
+        view = inflater.inflate(R.layout.fragment_user, container, false);
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         TextView title1 = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
         pullRefreshLayout(view);
-        listView = (ListView)view.findViewById(R.id.list);
-        if (idUser.equals(Utils.getUserID(activity)))
-        {
+        listView = (ListView) view.findViewById(R.id.list);
+        if (idUser.equals(Utils.getUserID(activity))) {
             header = inflater.inflate(R.layout.header_my_user, listView, false);
             title1.setText(R.string.my_count);
-        }
-        else
-        {
+        } else {
             header = inflater.inflate(R.layout.header_user, listView, false);
             title1.setText(R.string.app_name);
         }
@@ -132,12 +129,11 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     }
 
 
-
-    public void executeTaskGetUserData(){
+    public void executeTaskGetUserData() {
         final ProgressDialog dialog = Utils.showDialog(activity, R.string.loading);
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-        Call<UserData> call = apiService.getUserData(Utils.getMyToken(activity),Utils.getUserID(activity),idUser);
+        MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
+        Call<UserData> call = apiService.getUserData(Utils.getMyToken(activity), Utils.getUserID(activity), idUser);
         call.enqueue(new Callback<UserData>() {
             @Override
             public void onResponse(Response<UserData> response, Retrofit retrofit) {
@@ -180,18 +176,17 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     }
 
 
+    public void loadPublicationsUser() {
 
-    public void loadPublicationsUser(){
-
-        AdapterUser mAdapter = new AdapterUser(fragment,activity, userData.getListPublication(),userData.getFavourites());
+        AdapterUser mAdapter = new AdapterUser(fragment, activity, userData.getListPublication(), userData.getFavourites());
         listView.setAdapter(mAdapter);
 
         final LinearLayout layoutNoPublicationsMyUser = (LinearLayout) view.findViewById(R.id.layoutNoPublicationsMyUser);
         final LinearLayout layoutNoPublications = (LinearLayout) view.findViewById(R.id.layoutNoPublications);
 
 
-        if (userData.getListPublication().size()==0){
-            if (idUser.equals(Utils.getUserID(activity))){
+        if (userData.getListPublication().size() == 0) {
+            if (idUser.equals(Utils.getUserID(activity))) {
                 layoutNoPublicationsMyUser.setVisibility(View.VISIBLE);
                 layoutNoPublicationsMyUser.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -201,20 +196,20 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
                         activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 });
-            }else{
+            } else {
                 layoutNoPublications.setVisibility(View.VISIBLE);
             }
 
 
-        }else{
+        } else {
             layoutNoPublications.setVisibility(View.GONE);
             layoutNoPublicationsMyUser.setVisibility(View.GONE);
         }
 
     }
 
-    public void pullRefreshLayout(View view){
-        final PullRefreshLayout refreshLayout = (PullRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
+    public void pullRefreshLayout(View view) {
+        final PullRefreshLayout refreshLayout = (PullRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -230,29 +225,28 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     }
 
 
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity=activity;
+        this.activity = activity;
     }
 
 
-    public void controlHeader(User data){
-        ImageViewHeader = (ImageView)header.findViewById(R.id.ImageViewHeader);
+    public void controlHeader(User data) {
+        ImageViewHeader = (ImageView) header.findViewById(R.id.ImageViewHeader);
         Glide.with(activity).load(data.getImageFondo()).fitCenter().error(R.drawable.img_default).into(ImageViewHeader);
 
-        iconUser = (ImageView)header.findViewById(R.id.iconUser);
+        iconUser = (ImageView) header.findViewById(R.id.iconUser);
         Glide.with(activity).load(data.getImageAvatar()).fitCenter().error(R.drawable.img_default).into(iconUser);
 
-        nombreUser = (TextView)header.findViewById(R.id.textView);
+        nombreUser = (TextView) header.findViewById(R.id.textView);
         nombreUser.setText(data.getName());
-        textViewEstadoUser = (TextView)header.findViewById(R.id.textViewEstadoUser);
+        textViewEstadoUser = (TextView) header.findViewById(R.id.textViewEstadoUser);
         textViewEstadoUser.setText(data.getEstado());
 
 
-        final Button buttonFollow = (Button)header.findViewById(R.id.button3);
-        if (userData.getFollow()==1)
+        final Button buttonFollow = (Button) header.findViewById(R.id.button3);
+        if (userData.getFollow() == 1)
             buttonFollow.setTextColor(getResources().getColor(R.color.blue));
         else
             buttonFollow.setTextColor(Color.BLACK);
@@ -261,28 +255,28 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         buttonFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userData.getFollow()==1)
-                    WS.removeFollow(activity,userData,buttonFollow);
+                if (userData.getFollow() == 1)
+                    WS.removeFollow(activity, userData, buttonFollow);
                 else
-                    WS.addFollow(activity,userData,buttonFollow);
+                    WS.addFollow(activity, userData, buttonFollow);
 
             }
         });
 
-        Button buttonChat = (Button)header.findViewById(R.id.button4);
+        Button buttonChat = (Button) header.findViewById(R.id.button4);
         buttonChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(activity, SalaChat.class);
-                i.putExtra("user",userData.getUserInfo());
+                i.putExtra("user", userData.getUserInfo());
                 startActivity(i);
                 activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }
 
-    public void controlMyHeader(User data){
-        ImageViewHeader = (ImageView)header.findViewById(R.id.ImageViewHeader);
+    public void controlMyHeader(User data) {
+        ImageViewHeader = (ImageView) header.findViewById(R.id.ImageViewHeader);
         Glide.with(activity).load(data.getImageFondo()).fitCenter().error(R.drawable.img_default).into(ImageViewHeader);
         ImageViewHeader.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -293,7 +287,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         });
 
 
-        iconUser = (ImageView)header.findViewById(R.id.iconUser);
+        iconUser = (ImageView) header.findViewById(R.id.iconUser);
         Glide.with(activity).load(data.getImageAvatar()).asBitmap().fitCenter().error(R.drawable.default_avatar).into(new BitmapImageViewTarget(iconUser) {
             @Override
             protected void setResource(Bitmap resource) {
@@ -312,7 +306,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         });
 
 
-        TextView setTexts = (TextView)header.findViewById(R.id.view);
+        TextView setTexts = (TextView) header.findViewById(R.id.view);
         setTexts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -320,17 +314,15 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
             }
         });
 
-        nombreUser = (TextView)header.findViewById(R.id.textView);
+        nombreUser = (TextView) header.findViewById(R.id.textView);
         nombreUser.setText(data.getName());
-        textViewEstadoUser = (TextView)header.findViewById(R.id.textViewEstadoUser);
+        textViewEstadoUser = (TextView) header.findViewById(R.id.textViewEstadoUser);
         textViewEstadoUser.setText(data.getEstado());
 
     }
 
 
-
-
-    public void selectImage(){
+    public void selectImage() {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_dialog);
@@ -366,7 +358,9 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            if (data == null) { return;}
+            if (data == null) {
+                return;
+            }
 
             try {
 
@@ -376,11 +370,10 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream); //compress to which format you want.
                 byte[] byte_arr = stream.toByteArray();
 
-                if (imageSet==1)
+                if (imageSet == 1)
                     taskSetFondo(Base64.encodeToString(byte_arr, Base64.DEFAULT));
-                else if (imageSet==2)
+                else if (imageSet == 2)
                     taskSetAvatar(Base64.encodeToString(byte_arr, Base64.DEFAULT));
-
 
 
             } catch (FileNotFoundException e) {
@@ -398,24 +391,24 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
                 byte[] byte_arr = stream.toByteArray();
 
-                if (imageSet==1)
+                if (imageSet == 1)
                     taskSetFondo(Base64.encodeToString(byte_arr, Base64.DEFAULT));
-                else if (imageSet==2)
+                else if (imageSet == 2)
                     taskSetAvatar(Base64.encodeToString(byte_arr, Base64.DEFAULT));
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
 
-        }else if(resultCode == Activity.RESULT_OK && requestCode == 15){
-                userData.getListPublication().get(positionSetComment).setNumComments(data.getIntExtra("num", 0));
-                loadPublicationsUser();
-                listView.setSelection(positionSetComment+1);
+        } else if (resultCode == Activity.RESULT_OK && requestCode == 15) {
+            userData.getListPublication().get(positionSetComment).setNumComments(data.getIntExtra("num", 0));
+            loadPublicationsUser();
+            listView.setSelection(positionSetComment + 1);
         }
     }
 
 
-    public void taskSetAvatar(String data){
+    public void taskSetAvatar(String data) {
         final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage("Modificando Imagen...");
@@ -423,13 +416,14 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         dialog.setCancelable(false);
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
+        MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
         Call<ResultWS> call = apiService.setAvatar(Utils.getUserID(activity), data);
         call.enqueue(new Callback<ResultWS>() {
             @Override
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
                 dialog.dismiss();
                 if (response.body().getStatus().equals("ok")) {
+                    Utils.updateUserAvatar(activity, response.body().getData());
                     Glide.with(activity).load(response.body().getData()).asBitmap().fitCenter().error(R.drawable.default_avatar).into(new BitmapImageViewTarget(iconUser) {
                         @Override
                         protected void setResource(Bitmap resource) {
@@ -453,7 +447,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
     }
 
-    public void taskSetFondo(String data){
+    public void taskSetFondo(String data) {
 
         final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -462,7 +456,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         dialog.setCancelable(false);
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
+        MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
         Call<ResultWS> call = apiService.setImagenFondo(Utils.getUserID(activity), data);
         call.enqueue(new Callback<ResultWS>() {
             @Override
@@ -487,7 +481,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     }
 
 
-    public void setTexts(){
+    public void setTexts() {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_dialog_texts);
@@ -504,16 +498,16 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
             public void onClick(View v) {
                 dialog.dismiss();
                 if (nombre.getText().toString().equals(""))
-                    Toast.makeText(activity, R.string.necesario_un_nombre,Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity, R.string.necesario_un_nombre, Toast.LENGTH_LONG).show();
                 else
-                    taskSetTexts(nombre.getText().toString(),estado.getText().toString());
+                    taskSetTexts(nombre.getText().toString(), estado.getText().toString());
             }
         });
         dialog.show();
     }
 
 
-    public void taskSetTexts(final String nombre, final String estado){
+    public void taskSetTexts(final String nombre, final String estado) {
 
         final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -522,7 +516,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         dialog.setCancelable(false);
         dialog.show();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
+        MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
         Call<ResultWS> call = apiService.setTezts(Utils.getUserID(activity), nombre, estado);
         call.enqueue(new Callback<ResultWS>() {
             @Override
@@ -531,7 +525,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
                 if (response.body().getStatus().equals("ok")) {
                     nombreUser.setText(nombre);
                     textViewEstadoUser.setText(estado);
-                    Utils.updateUserName(activity,nombre);
+                    Utils.updateUserName(activity, nombre);
                 } else {
                     Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
                 }
@@ -549,9 +543,9 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
     @Override
     public void goComments(ListComments listComments, int position) {
-        this.positionSetComment=position;
+        this.positionSetComment = position;
         Intent i = new Intent(activity, CommentsActivity.class);
-        i.putExtra("data",listComments);
+        i.putExtra("data", listComments);
         startActivityForResult(i, 15);
         activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
