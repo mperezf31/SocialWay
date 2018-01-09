@@ -10,11 +10,10 @@ import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RadioGroup;
 
 import com.caminosantiago.socialway.R;
-import com.caminosantiago.socialway.loadPublication.LoadPublicationActivity;
+import com.caminosantiago.socialway.loadPublication.LoadPublicationFragment;
 
 public class MainFragment extends Fragment {
 
@@ -73,7 +72,7 @@ public class MainFragment extends Fragment {
         addPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(activity, LoadPublicationActivity.class);
+                Intent i = new Intent(activity, LoadPublicationFragment.class);
                 startActivity(i);
                 activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

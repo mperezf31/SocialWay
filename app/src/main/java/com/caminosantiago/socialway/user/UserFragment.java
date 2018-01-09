@@ -41,7 +41,7 @@ import com.caminosantiago.socialway.Utils;
 import com.caminosantiago.socialway.WS;
 import com.caminosantiago.socialway.chat.SalaChat;
 import com.caminosantiago.socialway.comments.CommentsActivity;
-import com.caminosantiago.socialway.loadPublication.LoadPublicationActivity;
+import com.caminosantiago.socialway.loadPublication.LoadPublicationFragment;
 import com.caminosantiago.socialway.model.ResultWS;
 import com.caminosantiago.socialway.model.User;
 import com.caminosantiago.socialway.model.query.ListComments;
@@ -191,7 +191,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
                 layoutNoPublicationsMyUser.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(activity, LoadPublicationActivity.class);
+                        Intent i = new Intent(activity, LoadPublicationFragment.class);
                         startActivity(i);
                         activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }

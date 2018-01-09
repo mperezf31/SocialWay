@@ -3,7 +3,6 @@ package com.caminosantiago.socialway;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,10 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.ActionProvider;
-import android.view.ContextMenu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +26,7 @@ import com.caminosantiago.socialway.chat.notifications.RegistrationIntentService
 import com.caminosantiago.socialway.followings.FollowingFragment;
 import com.caminosantiago.socialway.followings.UsersMainFragment;
 import com.caminosantiago.socialway.home.MainFragment;
-import com.caminosantiago.socialway.loadPublication.LoadPublicationActivity;
+import com.caminosantiago.socialway.loadPublication.LoadPublicationFragment;
 import com.caminosantiago.socialway.model.User;
 import com.caminosantiago.socialway.user.UserFragment;
 
@@ -123,9 +119,7 @@ public class MainActivity extends AppCompatActivity implements FollowingFragment
         } else if (id == R.id.nav_pilgrim) {
             fragmentManager.beginTransaction().replace(R.id.container, UsersMainFragment.newInstance()).commit();
         } else if (id == R.id.nav_publish) {
-            Intent i = new Intent(this, LoadPublicationActivity.class);
-            startActivity(i);
-            overridePendingTransition(R.anim.indicator_no_animator, R.anim.indicator_no_animator);
+            fragmentManager.beginTransaction().replace(R.id.container, LoadPublicationFragment.newInstance()).commit();
         } else if (id == R.id.nav_profile) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, UserFragment.newInstance("", Utils.getUserID(MainActivity.this))).commit();
         } else if (id == R.id.nav_help) {

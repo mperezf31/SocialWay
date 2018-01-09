@@ -25,7 +25,6 @@
                 android:layout_marginLeft="5dp"
                 android:id="@+id/select_image"
                 android:orientation="horizontal"
-                android:onClick="selectImage"
                 android:background="@color/blue"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
@@ -161,7 +160,6 @@
                 android:layout_marginLeft="5dp"
                 android:id="@+id/layoutAddLocation"
                 android:orientation="horizontal"
-                android:onClick="addLocation"
                 android:background="@color/blue"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
@@ -201,7 +199,6 @@
                 android:background="@color/blue"
                 android:textColor="@android:color/white"
                 android:text="Enviar"
-                android:onClick="buttonEnviar"
                 android:id="@+id/buttonSendPost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

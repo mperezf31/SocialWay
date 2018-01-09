@@ -74,11 +74,6 @@
             android:label="@string/title_activity_user" >
         </activity>
         <activity
-            android:name="com.caminosantiago.socialway.loadPublication.LoadPublicationActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_load_publication" >
-        </activity>
-        <activity
             android:screenOrientation="portrait"
             android:name="com.caminosantiago.socialway.comments.CommentsActivity"
             android:label="@string/title_activity_comments" >
