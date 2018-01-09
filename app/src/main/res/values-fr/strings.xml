@@ -77,5 +77,7 @@
     <string name="active_gps_location">Tournez sur le GPS pour un meilleur emplacement.</string>
     <string name="msg">Si vous voulez capturer et partager les plus belles et spéciales moments de votre "Camino de Santiago" ceci est votre application. Invitez vos amis à conparir leurs aventures.</string>
     <string name="invit">Inviter à utiliser SocialWay</string>
+    <string name="pilgrims">Pèlerins</string>
+    <string name="help">Aider</string>
 
 </resources>

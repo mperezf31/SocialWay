@@ -86,6 +86,8 @@
     <string name="online">En línea</string>
     <string name="ult_vez_hace">Ult. vez hace</string>
     <string name="ult_vez_desde">Ult. vez desde</string>
+    <string name="pilgrims">Pilgrims</string>
+    <string name="help">Help</string>
 
 
 </resources>

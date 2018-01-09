@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_pilgrim"
+            android:icon="@drawable/ic_pelgrin"
+            android:title="@string/pilgrims" />
+        <item
+            android:id="@+id/nav_publish"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/add_publication" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help"
+            android:title="@string/help" />
+    </group>
+
+</menu>

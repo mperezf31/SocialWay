@@ -3,32 +3,29 @@ package com.caminosantiago.socialway;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.caminosantiago.socialway.chat.notifications.RegistrationIntentService;
-import com.caminosantiago.socialway.followings.UsersMainFragment;
 import com.caminosantiago.socialway.followings.FollowingFragment;
-import com.caminosantiago.socialway.home.HomeFragment;
+import com.caminosantiago.socialway.followings.UsersMainFragment;
 import com.caminosantiago.socialway.home.MainFragment;
 import com.caminosantiago.socialway.loadPublication.LoadPublicationActivity;
 import com.caminosantiago.socialway.user.UserFragment;
 
 
-public class MainActivity extends AppCompatActivity implements FollowingFragment.OnFragmentInteractionListener,NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends AppCompatActivity implements FollowingFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
 
-
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-    DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
     TextView titleToolbar;
 
     @Override
@@ -41,75 +38,81 @@ public class MainActivity extends AppCompatActivity implements FollowingFragment
 
         registerNotifications();
 
-        if (!Utils.isLogin(this)){
-            Intent intent=new Intent(this,LoginActivity.class);
+        if (!Utils.isLogin(this)) {
+            Intent intent = new Intent(this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-        }else{
-            drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-            final LinearLayout parentContainer=(LinearLayout)findViewById(R.id.parentContainer);
+        } else {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open,
+                    R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
 
-            mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-            mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-
-            mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.app_name, R.string.app_name) {
-                public void onDrawerClosed(View view) {   supportInvalidateOptionsMenu();}
-                public void onDrawerOpened(View drawerView) { supportInvalidateOptionsMenu(); }
-
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+            navigationView.findViewById(R.id.headerView).setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onDrawerSlide(View drawerView, float slideOffset) {
-                    super.onDrawerSlide(drawerView, slideOffset);
-                    parentContainer.setTranslationX(slideOffset * drawerView.getWidth());
-                    drawerLayout.bringChildToFront(drawerView);
-                    drawerLayout.requestLayout();
+                public void onClick(View view) {
+                    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                    drawer.closeDrawer(GravityCompat.START);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, UserFragment.newInstance("", Utils.getIdUser(MainActivity.this))).commit();
                 }
-            };
-            drawerLayout.setDrawerListener(mDrawerToggle);
-            drawerLayout.setScrimColor(getResources().getColor(android.R.color.transparent));
+            });
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()).commit();
         }
 
         //Iniciamos servicio para obtener la posicion si no está ya activado
-        if (!Utils.isServiceRunning(MainActivity.this, ServiceLocation.class)){
-            Intent i= new Intent(MainActivity.this, ServiceLocation.class);
+        if (!Utils.isServiceRunning(MainActivity.this, ServiceLocation.class)) {
+            Intent i = new Intent(MainActivity.this, ServiceLocation.class);
             startService(i);
         }
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if (position==0){
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            fragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()) .commit();
-        }
 
-        else if (position==1)
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        // Handle navigation view item clicks here.
+        int id = menuItem.getItemId();
+
+        if (id == R.id.nav_home) {
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()).commit();
+        } else if (id == R.id.nav_pilgrim) {
             fragmentManager.beginTransaction().replace(R.id.container, UsersMainFragment.newInstance()).commit();
-        else if (position==2){
+        } else if (id == R.id.nav_publish) {
             Intent i = new Intent(this, LoadPublicationActivity.class);
             startActivity(i);
-            overridePendingTransition(R.anim.indicator_no_animator, R.anim.indicator_no_animator);}
-        else if (position==3)
-            fragmentManager.beginTransaction().replace(R.id.container, UserFragment.newInstance("", Utils.getIdUser(this))) .commit();
-        else if (position == 4)
+            overridePendingTransition(R.anim.indicator_no_animator, R.anim.indicator_no_animator);
+        } else if (id == R.id.nav_help) {
             fragmentManager.beginTransaction().replace(R.id.container, HelpFragment.newInstance()).commit();
+        }
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) { }
+    public void onFragmentInteraction(Uri uri) {
+    }
 
     @Override
     public void goToHome() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()) .commit();
+        fragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()).commit();
 
     }
 
-    public void registerNotifications(){
+    public void registerNotifications() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sharedPreferences.getString("tokenNotifications","").equals("")){
+        if (sharedPreferences.getString("tokenNotifications", "").equals("")) {
             Intent intentService = new Intent(this, RegistrationIntentService.class);
             startService(intentService);
         }
