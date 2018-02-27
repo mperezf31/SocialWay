@@ -111,15 +111,19 @@ public class AdapterPublication extends ArrayAdapter<Publication> {
 
         // Nombre usuario
         viewHolder.name.setText(data.getUser().getName().replaceAll("\"", ""));
-        viewHolder.name.setOnClickListener(new View.OnClickListener() {
+
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, UserActivity.class);
                 i.putExtra("idUser", data.getUser().getId());
                 context.startActivity(i);
-                context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
+                context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);            }
+        };
+
+        viewHolder.name.setOnClickListener(listener);
+        viewHolder.imageView.setOnClickListener(listener);
+        viewHolder.fechaPublicacion.setOnClickListener(listener);
 
         // Fecha publicacion
         viewHolder.fechaPublicacion.setText(Utils.formatDate(data.getFecha()));
@@ -220,10 +224,6 @@ public class AdapterPublication extends ArrayAdapter<Publication> {
 
         return convertView;
     }
-
-
-
-
 
 
     public void taskGetComments(final Activity activity,int idPublication, final int position){
