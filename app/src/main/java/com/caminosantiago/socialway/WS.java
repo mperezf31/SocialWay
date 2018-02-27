@@ -211,7 +211,7 @@ public class WS extends Application {
 
         final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Añadiendo following..");
+        dialog.setMessage("Añadiendo amigo..");
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         dialog.show();
@@ -244,7 +244,7 @@ public class WS extends Application {
 
         final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Añadiendo following..");
+        dialog.setMessage("Añadiendo amigo..");
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         dialog.show();
@@ -278,7 +278,7 @@ public class WS extends Application {
 
         final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Eliminando following..");
+        dialog.setMessage("Eliminando amigo..");
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         dialog.show();
@@ -311,7 +311,7 @@ public class WS extends Application {
 
         final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Eliminando following..");
+        dialog.setMessage("Eliminando amigo..");
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         dialog.show();
