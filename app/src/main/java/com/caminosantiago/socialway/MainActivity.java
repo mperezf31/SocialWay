@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
                 }
             });
 
+            navigationView.setCheckedItem(R.id.nav_home);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()).commit();
         }
