@@ -9,7 +9,7 @@ android {
 
 
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.caminosantiago.socialway"
         minSdkVersion 15

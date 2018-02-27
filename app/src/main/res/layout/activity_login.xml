@@ -1,131 +1,130 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    xmlns:fb="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     tools:context="com.caminosantiago.socialway.LoginActivity">
 
 
     <ImageView
         android:id="@+id/imageView"
-        android:src="@drawable/img_login"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_centerHorizontal="true"
+        android:layout_height="120dp"
+        android:layout_marginBottom="28dp"
+        android:layout_width="120dp"
         android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:src="@mipmap/ic_launcher" />
 
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_above="@+id/info"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp" />
-
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_width="wrap_content" />
 
 
     <com.caminosantiago.socialway.views.TextViewCookie
-        android:layout_width="wrap_content"
         android:gravity="center"
-        android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:text="@string/camino_de_santiago"
         android:id="@+id/info"
-        android:layout_marginBottom="15dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_width="wrap_content"
+        android:text="@string/camino_de_santiago"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="40sp" />
 
 
     <LinearLayout
+        android:background="@drawable/rounded_border_blue"
         android:gravity="center_vertical"
         android:id="@+id/layoutPass"
-        android:background="@drawable/rounded_border_blue"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_above="@+id/buttonRegister"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal">
 
         <com.caminosantiago.socialway.views.TextViewAwesome
+            android:id="@+id/textView3"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/fa_pencil"
-            android:textColor="@android:color/black"
-            android:id="@+id/textView3"
-            android:layout_gravity="center_vertical" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black" />
 
         <EditText
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="2dp"
-            android:textColorHint="@color/gris_oscuro"
             android:hint="@string/email"
-            android:paddingLeft="10dp"
-            android:maxLength="40"
-            android:textColor="@android:color/black"
             android:id="@+id/editText"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:layout_width="200dp"
+            android:maxLength="40"
+            android:paddingLeft="10dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/gris_oscuro" />
     </LinearLayout>
 
 
     <LinearLayout
-        android:gravity="center_vertical"
         android:background="@drawable/rounded_border_blue"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:id="@+id/linearLayout2"
         android:layout_above="@+id/layoutPass"
         android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout2">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal">
 
         <com.caminosantiago.socialway.views.TextViewAwesome
+            android:id="@+id/textView3U"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/fa_pencil"
-            android:textColor="@android:color/black"
-            android:id="@+id/textView3U"
-            android:layout_gravity="center_vertical" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black" />
 
         <EditText
-            android:inputType="textPersonName"
-            android:maxLength="40"
-            android:textColorHint="@color/gris_oscuro"
             android:hint="@string/nombre"
+            android:id="@+id/editTextU"
+            android:inputType="textPersonName"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="200dp"
+            android:maxLength="40"
             android:paddingLeft="10dp"
             android:textColor="@android:color/black"
-            android:id="@+id/editTextU"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1" />
+            android:textColorHint="@color/gris_oscuro" />
     </LinearLayout>
 
 
     <com.caminosantiago.socialway.views.ButtonAwesome
-        android:id="@+id/buttonRegister"
         android:background="@android:color/transparent"
-        android:textSize="45sp"
-        android:layout_marginBottom="50dp"
-        android:onClick="register"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:textColor="@android:color/white"
-        android:text="@string/fa_arrow_circle_right"
+        android:id="@+id/buttonRegister"
         android:layout_above="@+id/login_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:layout_marginBottom="50dp"
+        android:layout_width="50dp"
+        android:onClick="register"
+        android:text="@string/fa_arrow_circle_right"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="45sp" />
 
 </RelativeLayout>

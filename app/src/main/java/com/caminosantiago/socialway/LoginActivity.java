@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
                 dialog.dismiss();
 
-                if (response != null && response.body().getStatus().equals("ok")) {
+                if (response.body() != null && response.body().getStatus().equals("ok")) {
                     ResultWS res = response.body();
                     Log.e("Datos de respuesta", res.getName());
 
