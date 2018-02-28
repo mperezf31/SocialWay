@@ -31,12 +31,12 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.config
-            buildConfigField "String", "BASE_URL", "\"http://socialway.000webhostapp.com/wsApps/\""
+            buildConfigField "String", "BASE_URL", "\"http://mperezf.com/SocialWay/api/v1/\""
         }
 
         debug {
             signingConfig signingConfigs.config
-            buildConfigField "String", "BASE_URL", "\"http://socialway.000webhostapp.com/wsApps/\""
+            buildConfigField "String", "BASE_URL", "\"http://mperezf.com/SocialWay/api/v1/\""
         }
     }
 }
