@@ -146,8 +146,22 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
 
 
     public void loadPublications() {
-        AdapterPublication mAdapter = new AdapterPublication(fragment, activity, listPublications, listFavourites);
-        list.setAdapter(mAdapter);
+        if ( positionSetComment != -1){
+            int index = list.getFirstVisiblePosition();
+            View v = list.getChildAt(0);
+            int top = (v == null) ? 0 : (v.getTop() - list.getPaddingTop());
+
+            AdapterPublication mAdapter = new AdapterPublication(fragment, activity, listPublications, listFavourites);
+            list.setAdapter(mAdapter);
+
+            list.setSelectionFromTop(index, top);
+
+            positionSetComment = -1;
+        }else {
+            AdapterPublication mAdapter = new AdapterPublication(fragment, activity, listPublications, listFavourites);
+            list.setAdapter(mAdapter);
+        }
+
     }
 
     @Override
@@ -176,9 +190,7 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
     public void onResume() {
         super.onResume();
         if (positionSetComment != -1) {
-            loadPublications();
-            list.setSelection(positionSetComment + 1);
-            positionSetComment = -1;
+            executeTaskGetPublications();
         }
     }
 
