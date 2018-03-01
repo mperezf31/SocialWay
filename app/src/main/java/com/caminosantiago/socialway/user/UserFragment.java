@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -84,6 +85,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     int positionSetComment = 0;
     private OnFragmentInteractionListener mListener;
     private TextView titleToolbar;
+    private ProgressBar pbMain;
 
     // TODO: Rename and change types and number of parameters
     public static UserFragment newInstance(String param1, String param2) {
@@ -110,6 +112,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_user, container, false);
+        pbMain = (ProgressBar) getActivity().findViewById(R.id.pbMain);
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         titleToolbar = (TextView) toolbar.findViewById(R.id.textViewTitleApp);
         pullRefreshLayout(view);
@@ -149,20 +152,24 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
     }
 
     public void executeTaskGetUserData() {
-        final ProgressDialog dialog = Utils.showDialog(activity, R.string.loading);
-        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        pbMain.setVisibility(View.VISIBLE);
+        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(
+                GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
         Call<UserData> call = apiService.getUserData(Utils.getMyToken(activity), Utils.getUserID(activity), idUser);
         call.enqueue(new Callback<UserData>() {
             @Override
             public void onResponse(Response<UserData> response, Retrofit retrofit) {
-                dialog.dismiss();
+                if (isAdded()) {
+                    pbMain.setVisibility(View.GONE);
+                }
                 userData = response.body();
                 if (userData.getStatus().equals("ok")) {
-                    if (idUser.equals(Utils.getUserID(activity)))
+                    if (idUser.equals(Utils.getUserID(activity))) {
                         controlMyHeader(userData.getUserInfo());
-                    else
+                    } else {
                         controlHeader(userData.getUserInfo());
+                    }
 
                     loadPublicationsUser();
                 } else {
@@ -172,7 +179,9 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                if (isAdded()) {
+                    pbMain.setVisibility(View.GONE);
+                }
                 errorLoadDate();
             }
         });
@@ -197,10 +206,12 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
     public void loadPublicationsUser() {
 
-        AdapterUser mAdapter = new AdapterUser(fragment, activity, userData.getListPublication(), userData.getFavourites());
+        AdapterUser mAdapter = new AdapterUser(fragment, activity, userData.getListPublication(),
+                userData.getFavourites());
         listView.setAdapter(mAdapter);
 
-        final LinearLayout layoutNoPublicationsMyUser = (LinearLayout) view.findViewById(R.id.layoutNoPublicationsMyUser);
+        final LinearLayout layoutNoPublicationsMyUser = (LinearLayout) view.findViewById(
+                R.id.layoutNoPublicationsMyUser);
         final LinearLayout layoutNoPublications = (LinearLayout) view.findViewById(R.id.layoutNoPublications);
 
 
@@ -258,19 +269,21 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
 
         final Button buttonFollow = (Button) header.findViewById(R.id.button3);
-        if (userData.getFollow() == 1)
+        if (userData.getFollow() == 1) {
             buttonFollow.setTextColor(getResources().getColor(R.color.blue));
-        else
+        } else {
             buttonFollow.setTextColor(Color.BLACK);
+        }
 
 
         buttonFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userData.getFollow() == 1)
+                if (userData.getFollow() == 1) {
                     WS.removeFollow(activity, userData, buttonFollow);
-                else
+                } else {
                     WS.addFollow(activity, userData, buttonFollow);
+                }
 
             }
         });
@@ -300,14 +313,16 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
 
         iconUser = (ImageView) header.findViewById(R.id.iconUser);
-        Glide.with(activity).load(data.getImageAvatar()).asBitmap().fitCenter().error(R.drawable.default_avatar).into(new BitmapImageViewTarget(iconUser) {
-            @Override
-            protected void setResource(Bitmap resource) {
-                RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(activity.getResources(), resource);
-                circularBitmapDrawable.setCircular(true);
-                iconUser.setImageDrawable(circularBitmapDrawable);
-            }
-        });
+        Glide.with(activity).load(data.getImageAvatar()).asBitmap().fitCenter().error(R.drawable.default_avatar).into(
+                new BitmapImageViewTarget(iconUser) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(
+                                activity.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        iconUser.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
 
         iconUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,9 +345,7 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         nombreUser.setText(data.getName());
         textViewEstadoUser = (TextView) header.findViewById(R.id.textViewEstadoUser);
         textViewEstadoUser.setText(data.getEstado());
-
     }
-
 
     public void selectImage() {
         final Dialog dialog = new Dialog(activity);
@@ -351,11 +364,13 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
                 if (rdGalery.isChecked()) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
-                    startActivityForResult(Intent.createChooser(intent, activity.getString(R.string.select_image)), PICK_IMAGE);
+                    startActivityForResult(Intent.createChooser(intent, activity.getString(R.string.select_image)),
+                            PICK_IMAGE);
 
                 } else {
                     String name = Utils.dateToString(new Date(), "yyyy-MM-dd-hh:mm:ss");
-                    destination = new File(Environment.getExternalStorageDirectory(), Utils.getUserID(activity) + "SocialWay-" + name + ".jpg");
+                    destination = new File(Environment.getExternalStorageDirectory(),
+                            Utils.getUserID(activity) + "SocialWay-" + name + ".jpg");
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(destination));
                     startActivityForResult(intent, REQUEST_IMAGE);
@@ -382,10 +397,11 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream); //compress to which format you want.
                 byte[] byte_arr = stream.toByteArray();
 
-                if (imageSet == 1)
+                if (imageSet == 1) {
                     taskSetFondo(Base64.encodeToString(byte_arr, Base64.DEFAULT));
-                else if (imageSet == 2)
+                } else if (imageSet == 2) {
                     taskSetAvatar(Base64.encodeToString(byte_arr, Base64.DEFAULT));
+                }
 
 
             } catch (FileNotFoundException e) {
@@ -403,10 +419,11 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
 
                 byte[] byte_arr = stream.toByteArray();
 
-                if (imageSet == 1)
+                if (imageSet == 1) {
                     taskSetFondo(Base64.encodeToString(byte_arr, Base64.DEFAULT));
-                else if (imageSet == 2)
+                } else if (imageSet == 2) {
                     taskSetAvatar(Base64.encodeToString(byte_arr, Base64.DEFAULT));
+                }
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -427,7 +444,8 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         dialog.show();
-        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(
+                GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
         Call<ResultWS> call = apiService.setAvatar(Utils.getUserID(activity), data);
         call.enqueue(new Callback<ResultWS>() {
@@ -436,23 +454,27 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
                 dialog.dismiss();
                 if (response.body().getStatus().equals("ok")) {
                     Utils.updateUserAvatar(activity, response.body().getData());
-                    Glide.with(activity).load(response.body().getData()).asBitmap().fitCenter().error(R.drawable.default_avatar).into(new BitmapImageViewTarget(iconUser) {
+                    Glide.with(activity).load(response.body().getData()).asBitmap().fitCenter().error(
+                            R.drawable.default_avatar).into(new BitmapImageViewTarget(iconUser) {
                         @Override
                         protected void setResource(Bitmap resource) {
-                            RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(activity.getResources(), resource);
+                            RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(
+                                    activity.getResources(), resource);
                             circularBitmapDrawable.setCircular(true);
                             iconUser.setImageDrawable(circularBitmapDrawable);
                         }
                     });
                 } else {
-                    Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
+                    Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(
+                            Color.WHITE).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
                 dialog.dismiss();
-                Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
+                Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(
+                        Color.WHITE).show();
 
             }
         });
@@ -467,7 +489,8 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         dialog.show();
-        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(
+                GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
         Call<ResultWS> call = apiService.setImagenFondo(Utils.getUserID(activity), data);
         call.enqueue(new Callback<ResultWS>() {
@@ -475,16 +498,19 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
             public void onResponse(Response<ResultWS> response, Retrofit retrofit) {
                 dialog.dismiss();
                 if (response.body().getStatus().equals("ok")) {
-                    Glide.with(activity).load(response.body().getData()).fitCenter().error(R.drawable.img_default).into(ImageViewHeader);
+                    Glide.with(activity).load(response.body().getData()).fitCenter().error(R.drawable.img_default).into(
+                            ImageViewHeader);
                 } else {
-                    Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
+                    Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(
+                            Color.WHITE).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
                 dialog.dismiss();
-                Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
+                Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(
+                        Color.WHITE).show();
 
             }
         });
@@ -509,10 +535,11 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                if (nombre.getText().toString().equals(""))
+                if (nombre.getText().toString().equals("")) {
                     Toast.makeText(activity, R.string.necesario_un_nombre, Toast.LENGTH_LONG).show();
-                else
+                } else {
                     taskSetTexts(nombre.getText().toString(), estado.getText().toString());
+                }
             }
         });
         dialog.show();
@@ -527,7 +554,8 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         dialog.show();
-        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(
+                GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
         Call<ResultWS> call = apiService.setTezts(Utils.getUserID(activity), nombre, estado);
         call.enqueue(new Callback<ResultWS>() {
@@ -539,14 +567,16 @@ public class UserFragment extends Fragment implements AdapterUser.OnInteractionH
                     textViewEstadoUser.setText(estado);
                     Utils.updateUserName(activity, nombre);
                 } else {
-                    Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
+                    Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(
+                            Color.WHITE).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
                 dialog.dismiss();
-                Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(Color.WHITE).show();
+                Snackbar.make(view, R.string.error_conection, Snackbar.LENGTH_LONG).setActionTextColor(
+                        Color.WHITE).show();
             }
         });
 

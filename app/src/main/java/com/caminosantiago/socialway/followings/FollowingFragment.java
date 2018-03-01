@@ -1,19 +1,15 @@
 package com.caminosantiago.socialway.followings;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RadioGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,7 +30,6 @@ import retrofit.Retrofit;
 
 
 public class FollowingFragment extends Fragment implements AdapterFollowings.OnInteractionFollowings {
-    ProgressDialog dialog;
     static FollowingFragment fragment;
     Activity activity;
     ListView listView;
@@ -44,6 +39,7 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
     ListFollowings listFollowings;
     TextView titleFollow;
     private OnFragmentInteractionListener mListener;
+    private ProgressBar pbMain;
 
     public static FollowingFragment newInstance() {
         fragment = new FollowingFragment();
@@ -58,6 +54,7 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_following, container, false);
+        pbMain = (ProgressBar) getActivity().findViewById(R.id.pbMain);
         titleFollow = (TextView) view.findViewById(R.id.titleFollow);
         titleFollow.setText(R.string.peregrinos_que_sigues);
         listView = (ListView) view.findViewById(R.id.listView2);
@@ -80,19 +77,21 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
     }
 
     public void executeTaskGetFollowings() {
-        if (!refreshLayout.isActivated())
-            dialog = Utils.showDialog(activity, R.string.loading);
+        if (!refreshLayout.isActivated()) {
+            pbMain.setVisibility(View.VISIBLE);
+        }
 
-        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(
+                GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
         Call<ListFollowings> call = apiService.getFollowings(Utils.getUserID(activity));
         call.enqueue(new Callback<ListFollowings>() {
             @Override
             public void onResponse(Response<ListFollowings> response, Retrofit retrofit) {
                 refreshLayout.setRefreshing(false);
-                if (dialog.isShowing())
-                    dialog.dismiss();
-
+                if (isAdded()) {
+                    pbMain.setVisibility(View.GONE);
+                }
                 if (response.body().getStatus().equals("ok")) {
                     listFollowings = response.body();
                     showFollowings();
@@ -105,8 +104,9 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
             @Override
             public void onFailure(Throwable t) {
                 refreshLayout.setRefreshing(false);
-                if (dialog.isShowing())
-                    dialog.dismiss();
+                if (isAdded()) {
+                    pbMain.setVisibility(View.GONE);
+                }
                 errorLoadDate();
             }
         });
@@ -133,7 +133,8 @@ public class FollowingFragment extends Fragment implements AdapterFollowings.OnI
         if (listFollowings.getUsers().size() != 0) {
             mAdapter = new AdapterFollowings(fragment, activity, listFollowings.getUsers());
             listView.setAdapter(mAdapter);
-            titleFollow.setText(getString(R.string.peregrinos_que_sigues) + " (" + listFollowings.getUsers().size() + ")");
+            titleFollow.setText(
+                    getString(R.string.peregrinos_que_sigues) + " (" + listFollowings.getUsers().size() + ")");
 
         } else {
             final RelativeLayout layoutNoFollowings = (RelativeLayout) view.findViewById(R.id.layoutNoFollowings);

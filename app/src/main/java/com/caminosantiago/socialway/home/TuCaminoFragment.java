@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,9 +50,9 @@ public class TuCaminoFragment extends Fragment implements AdapterPublication.OnI
     static TuCaminoFragment fragment;
     public  static  List<Publication> listPublications=new ArrayList<>();
     List<Integer> listFavourites=new ArrayList<>();
-    ProgressDialog dialog;
     PullRefreshLayout refreshLayout;
     RelativeLayout layoutNoPublicationsWay;
+    private ProgressBar pbMain;
 
     public static TuCaminoFragment newInstance() {
         fragment = new TuCaminoFragment();
@@ -69,6 +70,7 @@ public class TuCaminoFragment extends Fragment implements AdapterPublication.OnI
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view= inflater.inflate(R.layout.fragment_way, container, false);
+        pbMain = (ProgressBar) getActivity().findViewById(R.id.pbMain);
 
         if (Utils.isLogin(activity)){
             controlToolbar();
@@ -188,7 +190,7 @@ public class TuCaminoFragment extends Fragment implements AdapterPublication.OnI
 
     public void executeTaskGetPublications(){
         if (!refreshLayout.isActivated())
-             dialog = Utils.showDialog(activity,R.string.loading);
+            pbMain.setVisibility(View.VISIBLE);
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
@@ -197,8 +199,9 @@ public class TuCaminoFragment extends Fragment implements AdapterPublication.OnI
             @Override
             public void onResponse(Response<ListPublications> response, Retrofit retrofit) {
                 refreshLayout.setRefreshing(false);
-                if (dialog.isShowing())
-                    dialog.dismiss();
+                if (isAdded()){
+                    pbMain.setVisibility(View.GONE);
+                }
 
                 if (response.body().getStatus().equals("ok")) {
                     listPublications = response.body().getListPublication();
@@ -213,8 +216,9 @@ public class TuCaminoFragment extends Fragment implements AdapterPublication.OnI
             @Override
             public void onFailure(Throwable t) {
                 refreshLayout.setRefreshing(false);
-                if (dialog.isShowing())
-                    dialog.dismiss();
+                if (isAdded()){
+                    pbMain.setVisibility(View.GONE);
+                }
                 errorLoadDate();
             }
         });
