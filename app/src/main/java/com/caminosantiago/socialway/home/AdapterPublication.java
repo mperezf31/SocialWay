@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,24 +62,24 @@ public class AdapterPublication extends ArrayAdapter<Publication> {
     }
 
 
-    public AdapterPublication(OnInteractionHome callback,Activity context, List<Publication> contenido, List<Integer> listFavourites) {
+    public AdapterPublication(OnInteractionHome callback, Activity context, List<Publication> contenido,
+            List<Integer> listFavourites) {
         super(context, R.layout.item_publication, contenido);
         this.context = context;
         this.contenido = contenido;
-        this.listFavourites=listFavourites;
-        this.callback=callback;
+        this.listFavourites = listFavourites;
+        this.callback = callback;
     }
-
 
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final ViewHolder viewHolder;
-        if(convertView==null){
+        if (convertView == null) {
             // inflate the layout
             LayoutInflater inflater = context.getLayoutInflater();
-            convertView= inflater.inflate(R.layout.item_publication, null, true);
+            convertView = inflater.inflate(R.layout.item_publication, null, true);
             // well set up the ViewHolder
             viewHolder = new ViewHolder();
             viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imgAvatarPublication);
@@ -100,14 +99,15 @@ public class AdapterPublication extends ArrayAdapter<Publication> {
 
             convertView.setTag(viewHolder);
 
-        }else{
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
         final Publication data = getItem(position);
 
         // Avatar
-        Glide.with(context).load(data.getUser().getImageAvatar()).fitCenter().error(R.drawable.img_default).into(viewHolder.imageView);
+        Glide.with(context).load(data.getUser().getImageAvatar()).fitCenter().error(R.drawable.img_default).into(
+                viewHolder.imageView);
 
         // Nombre usuario
         viewHolder.name.setText(data.getUser().getName().replaceAll("\"", ""));
@@ -118,7 +118,8 @@ public class AdapterPublication extends ArrayAdapter<Publication> {
                 Intent i = new Intent(context, UserActivity.class);
                 i.putExtra("idUser", data.getUser().getId());
                 context.startActivity(i);
-                context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);            }
+                context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
         };
 
         viewHolder.name.setOnClickListener(listener);
@@ -130,9 +131,9 @@ public class AdapterPublication extends ArrayAdapter<Publication> {
 
 
         // Ir a mapa
-        if (data.getLat()==0 || data.getLon()==0)
+        if (data.getLat() == 0 || data.getLon() == 0) {
             viewHolder.goMap.setVisibility(View.INVISIBLE);
-        else{
+        } else {
             viewHolder.goMap.setVisibility(View.VISIBLE);
             viewHolder.goMap.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -150,28 +151,29 @@ public class AdapterPublication extends ArrayAdapter<Publication> {
 
         //Imagenes de la publicacion
         final PagerAdapterPublication adapterPager;
-        if (data.getListImages().size()==0){
+        if (data.getListImages().size() == 0) {
             viewHolder.viewPager.setVisibility(View.GONE);
             viewHolder.defaultIndicator.setVisibility(View.GONE);
-        }else{
+        } else {
             viewHolder.viewPager.setVisibility(View.VISIBLE);
             viewHolder.defaultIndicator.setVisibility(View.VISIBLE);
-            adapterPager = new PagerAdapterPublication(context,data.getListImages());
+            adapterPager = new PagerAdapterPublication(context, data.getListImages());
             viewHolder.viewPager.setAdapter(adapterPager);
             viewHolder.defaultIndicator.setViewPager(viewHolder.viewPager);
         }
 
-        //Obciones ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Obciones
+        // //////////////////////////////////////////////////////////////////////////////////////////////////////
         viewHolder.layoutLikes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WS.showFavourites(context,data.getId());
+                WS.showFavourites(context, data.getId());
             }
         });
 
-        if (data.getNumFavourites()!=0){
+        if (data.getNumFavourites() != 0) {
             viewHolder.layoutLikes.setVisibility(View.VISIBLE);
-            viewHolder.textViewNumVotes.setText(data.getNumFavourites() +"");
+            viewHolder.textViewNumVotes.setText(data.getNumFavourites() + "");
 
         } else {
             viewHolder.layoutLikes.setVisibility(View.GONE);
@@ -185,30 +187,32 @@ public class AdapterPublication extends ArrayAdapter<Publication> {
             }
         });
 
-        if (data.getNumComments()!=0){
-            viewHolder.layoutComments.setVisibility(View.VISIBLE );
+        if (data.getNumComments() != 0) {
+            viewHolder.layoutComments.setVisibility(View.VISIBLE);
             viewHolder.textViewNumComments.setText(data.getNumComments() + "");
-        }else{
-            viewHolder.layoutComments.setVisibility(View.GONE );
+        } else {
+            viewHolder.layoutComments.setVisibility(View.GONE);
         }
 
 
-        if (Utils.isFavourite(listFavourites,data.getId()))
+        if (Utils.isFavourite(listFavourites, data.getId())) {
             viewHolder.addFavourite.setTextColor(context.getResources().getColor(R.color.blue));
-        else
+        } else {
             viewHolder.addFavourite.setTextColor(Color.BLACK);
+        }
 
         viewHolder.addFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WS.setFavourite(context, viewHolder.addFavourite, listFavourites, data.getId(), data, viewHolder.layoutLikes, viewHolder.textViewNumVotes);
+                WS.setFavourite(context, viewHolder.addFavourite, listFavourites, data.getId(), data,
+                        viewHolder.layoutLikes, viewHolder.textViewNumVotes);
             }
         });
 
         viewHolder.goComments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taskGetComments(context,data.getId(),position);
+                taskGetComments(context, data.getId(), position);
             }
         });
 
@@ -221,44 +225,41 @@ public class AdapterPublication extends ArrayAdapter<Publication> {
         });
 
 
-
         return convertView;
     }
 
 
-    public void taskGetComments(final Activity activity,int idPublication, final int position){
+    public void taskGetComments(final Activity activity, int idPublication, final int position) {
 
-            final ProgressDialog dialog = Utils.showDialog(activity,R.string.loading);
-            final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-            MyApiEndpointInterface apiService =retrofit.create(MyApiEndpointInterface.class);
-            Call<ListComments> call = apiService.getComments(idPublication);
-            call.enqueue(new Callback<ListComments>() {
-                @Override
-                public void onResponse(Response<ListComments> response, Retrofit retrofit) {
-                    dialog.dismiss();
-                    if (response.body().getStatus().equals("ok")) {
-                        callback.goComments(response.body(),position);
-                    } else {
-                        Toast.makeText(activity,R.string.error_conection,Toast.LENGTH_LONG).show();
-                    }
+        final ProgressDialog dialog = Utils.showDialog(activity, R.string.loading);
+        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(
+                GsonConverterFactory.create()).build();
+        MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
+        Call<ListComments> call = apiService.getComments(idPublication);
+        call.enqueue(new Callback<ListComments>() {
+            @Override
+            public void onResponse(Response<ListComments> response, Retrofit retrofit) {
+                dialog.dismiss();
+                if (response.body().getStatus().equals("ok")) {
+                    callback.goComments(response.body(), position);
+                } else {
+                    Toast.makeText(activity, R.string.error_conection, Toast.LENGTH_LONG).show();
                 }
+            }
 
-                @Override
-                public void onFailure(Throwable t) {
-                    dialog.dismiss();
-                    Toast.makeText(activity,R.string.error_conection,Toast.LENGTH_LONG).show();
-                }
-            });
+            @Override
+            public void onFailure(Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(activity, R.string.error_conection, Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
 
-    public interface OnInteractionHome{
-        public void goComments(ListComments listComments,int position);
+    public interface OnInteractionHome {
+        public void goComments(ListComments listComments, int position);
 
     }
-
-
-
 
 }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,8 +43,8 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
     static HomeFragment fragment;
     public static List<Publication> listPublications = new ArrayList<>();
     List<Integer> listFavourites = new ArrayList<>();
-    ProgressDialog dialog;
     PullRefreshLayout refreshLayout;
+    private ProgressBar pbMain;
 
     // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance() {
@@ -63,6 +64,7 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        pbMain = (ProgressBar) getActivity().findViewById(R.id.pbMain);
 
         if (Utils.isLogin(activity)) {
             controlToolbar();
@@ -84,7 +86,7 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
 
     public void executeTaskGetPublications() {
         if (!refreshLayout.isActivated())
-            dialog = Utils.showDialog(activity, R.string.loading);
+            pbMain.setVisibility(View.VISIBLE);
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         MyApiEndpointInterface apiService = retrofit.create(MyApiEndpointInterface.class);
@@ -93,8 +95,9 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
             @Override
             public void onResponse(Response<ListPublications> response, Retrofit retrofit) {
                 refreshLayout.setRefreshing(false);
-                if (dialog.isShowing())
-                    dialog.dismiss();
+                if (isAdded()){
+                    pbMain.setVisibility(View.GONE);
+                }
 
                 if (response.body() != null && response.body().getStatus().equals("ok")) {
                     saveUserInfo(response.body().getUserInfo());
@@ -110,8 +113,9 @@ public class HomeFragment extends Fragment implements AdapterPublication.OnInter
             @Override
             public void onFailure(Throwable t) {
                 refreshLayout.setRefreshing(false);
-                if (dialog.isShowing())
-                    dialog.dismiss();
+                if (isAdded()){
+                    pbMain.setVisibility(View.GONE);
+                }
                 errorLoadDate();
             }
         });
