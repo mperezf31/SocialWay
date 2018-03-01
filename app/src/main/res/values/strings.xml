@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SocialWay</string>
+    <string name="app_name">Chat Camino de Santiago</string>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBVIvgTtxV38hAkTS4snU-i7xnjS0KqKEQ</string>
     <string name="gcm_defaultSenderId" translatable="false">862729702286</string>
