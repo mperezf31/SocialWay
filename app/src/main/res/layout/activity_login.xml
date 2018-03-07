@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/white"
+    android:background="@android:color/darker_gray"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:layout_height="match_parent"
@@ -37,12 +37,12 @@
         android:layout_marginBottom="15dp"
         android:layout_width="wrap_content"
         android:text="@string/camino_de_santiago"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/black"
         android:textSize="40sp" />
 
 
     <LinearLayout
-        android:background="@drawable/rounded_border_blue"
+        android:background="@android:color/white"
         android:gravity="center_vertical"
         android:id="@+id/layoutPass"
         android:layout_above="@+id/buttonRegister"
@@ -79,7 +79,7 @@
 
 
     <LinearLayout
-        android:background="@drawable/rounded_border_blue"
+        android:background="@android:color/white"
         android:gravity="center_vertical"
         android:id="@+id/linearLayout2"
         android:layout_above="@+id/layoutPass"
@@ -124,7 +124,7 @@
         android:layout_width="50dp"
         android:onClick="register"
         android:text="@string/fa_arrow_circle_right"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/white"
         android:textSize="45sp" />
 
 </RelativeLayout>
