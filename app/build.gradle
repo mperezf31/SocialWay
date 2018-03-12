@@ -14,8 +14,8 @@ android {
         applicationId "com.caminosantiago.socialway"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 8
+        versionName "1.8"
     }
 
 
